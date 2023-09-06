@@ -8,6 +8,10 @@ There are two common options for using LLM agents to edit files:
 
 **The Solution**: Instead of asking the agent to call a tool with the new contents, give the agent an "Editor" tool which drops into a sub-agent with appropriate context. The simulated editor shows the state of the editor in plaintext, takes individual keystrokes, and reflects updates. This can be conceptualized as individual keystrokes forming tools. And why invent your own when Vim already exists?
 
+### Drawbacks
+- This tends to be quite fast, but does consume a lot of requests because each command is its own request.
+- GPT-3.5 struggles with doing things logically in Vim, so you are limited to GPT-4. (Claude-2.0 untested so far).
+
 ## Installation
 ```bash
 brew install neovim
