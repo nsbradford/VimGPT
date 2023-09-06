@@ -22,3 +22,16 @@ pyenv activate k-llm
 pip install -r requirements.txt
 ```
 
+## Demo
+To run with headless vim:
+```bash
+python demo_headless.py
+```
+
+To attach to a running Neovim instance so you can view what's happening in real-time as the agent does:
+```bash
+NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim
+
+# in separate terminal
+python demo_attached.py
+```
