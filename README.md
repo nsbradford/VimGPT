@@ -12,4 +12,9 @@ There are two common options for using LLM agents to edit files:
 1. Simulated Vim bindings directly (instead of re-creating functionality such as copy-paste, undo, etc.)
 
 ## Installation
-...
+```bash
+pyenv install 3.11:latest
+pyenv virtualenv 3.11 k-llm
+pyenv activate k-llm
+pip install -r requirements.txt
+```
