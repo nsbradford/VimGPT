@@ -66,11 +66,13 @@ def llm_get_keystrokes(messages):
   parsed = extract_cmd_content(text)
   return parsed
 
-
+# TODO: in-memory vs file system options
 def vim_gpt(get_vim: Callable, filename: str, content: str, prompt: str, max_calls: int = 10, delay_seconds: int = 0):
   history = []
   
   with get_vim() as nvim:
+    nvim.command('setlocal buftype=nofile')
+    nvim.command('set number')
     nvim.current.buffer[:] = content.split('\n')
     for i in range(max_calls):
       buf = '\n'.join(nvim.current.buffer[:])
@@ -84,9 +86,12 @@ def vim_gpt(get_vim: Callable, filename: str, content: str, prompt: str, max_cal
       ])
       print(f'LLM calling cmd: "{cmd}"')
       history.append(cmd)
+      nvim.command(f'echom "{cmd}"')
       if cmd == 'wq':
         break
       else:
+        # this gets the command to show up in the UI
+        
         nvim.command(cmd)
         # Wait for a few seconds so you can capture the action (useful for screen recording)
         if delay_seconds > 0:
