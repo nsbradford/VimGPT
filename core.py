@@ -1,4 +1,4 @@
-from typing import List
+from typing import Callable, List
 import pynvim
 import openai
 import os
@@ -67,9 +67,10 @@ def llm_get_keystrokes(messages):
   return parsed
 
 
-def vim_gpt(filename: str, content: str, prompt: str, max_calls: int = 10):
+def vim_gpt(get_vim: Callable, filename: str, content: str, prompt: str, max_calls: int = 10, delay_seconds: int = 0):
   history = []
-  with pynvim.attach('child', argv=["nvim", "--embed", "--headless"]) as nvim:
+  
+  with get_vim() as nvim:
     nvim.current.buffer[:] = content.split('\n')
     for i in range(max_calls):
       buf = '\n'.join(nvim.current.buffer[:])
@@ -87,6 +88,10 @@ def vim_gpt(filename: str, content: str, prompt: str, max_calls: int = 10):
         break
       else:
         nvim.command(cmd)
+        # Wait for a few seconds so you can capture the action (useful for screen recording)
+        if delay_seconds > 0:
+           import time
+           time.sleep(delay_seconds)
     
     (line, col) = nvim.current.window.cursor
     final = render_text(filename, buf, line, col, history)
