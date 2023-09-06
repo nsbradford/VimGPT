@@ -13,8 +13,13 @@ There are two common options for using LLM agents to edit files:
 
 ## Installation
 ```bash
+brew install neovim
+
 pyenv install 3.11:latest
 pyenv virtualenv 3.11 k-llm
 pyenv activate k-llm
 pip install -r requirements.txt
 ```
+
+## Recommendations
+- You should use emacs as a text editor, it's simply the best.
