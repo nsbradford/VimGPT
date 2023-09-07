@@ -1,6 +1,8 @@
 import argparse
 import logging
 
+from vimgpt.core import vimgpt_agent
+
 
 def main():
     parser = argparse.ArgumentParser(description="VimGPT Entry Point")
@@ -48,12 +50,12 @@ def main():
     logger = logging.getLogger(__name__)
 
     with open(args.filepath, "r") as file:
-        file.read()
+        content = file.read()
 
     logger.debug(f"VimGPT opened file: {args.filepath}")
     return vimgpt_agent(
         args.filepath,
-        contents,
+        content,
         args.command,
         args.socket,
         args.max_calls,
