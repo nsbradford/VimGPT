@@ -1,7 +1,8 @@
-from typing import Callable, List
-import openai
 import os
 import re
+from typing import Callable, List
+
+import openai
 
 
 def extract_cmd_content(s):

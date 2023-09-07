@@ -1,6 +1,3 @@
-# ruff: noqa: E501
-
-
 def PROMPT_VIM_GPT(goal: str) -> str:
     """
     Removed <thoughts>CONCISE thoughts about what to do next</thoughts> tag for faster performance.

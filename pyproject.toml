@@ -21,3 +21,19 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry.scripts]
 vimgpt_demo_headless = "vimgpt.demo_headless:main"
 vimgpt_demo_attached = "vimgpt.demo_attached:main"
+
+[tool.ruff]
+# Same as Black.
+# line-length = 88
+target-version = "py311"
+
+select = [
+    "E",  # pycodestyle
+    "F",  # pyflakes
+    "I",  # isort
+]
+
+ignore = [
+    "E712",  # Allow using if x == False, as it's not always equivalent to if x.
+    "E501",  # Supress line-too-long warnings: trust black's judgement on this one.
+]
