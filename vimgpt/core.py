@@ -20,7 +20,6 @@ def vimgpt(
     delay_seconds: Optional[int] = None,
 ):
     def get_vim():
-        #
         return (
             pynvim.attach("socket", path=socket)
             if socket

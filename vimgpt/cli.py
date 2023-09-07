@@ -24,27 +24,25 @@ def main():
     parser.add_argument(
         "--verbose", "-v", action="store_true", help="Sets logging level to debug."
     )
+    # Add max_calls argument
+    parser.add_argument('--max-calls', type=int, default=1000, 
+                        help='Maximum number of calls. Default is 1000.')
+
+    # Add delay_seconds argument
+    parser.add_argument('--delay-seconds', type=int, default=None, 
+                        help='Delay in seconds. If not provided, defaults to None.')
 
     args = parser.parse_args()
 
-    # Set up logging
     logging_level = logging.DEBUG if args.verbose else logging.INFO
     logging.basicConfig(level=logging_level)
     logger = logging.getLogger(__name__)
-
-    # Your application logic here
-    # logger.info(f"Opening file: {args.filepath}")
-    # logger.info(f"Executing command: {args.command}")
-    # if args.socket:
-    #     logger.info(f"Using nvim socket: {args.socket}")
-    # else:
-    #     logger.info("Running in headless mode")
 
     with open(args.filepath, "r") as file:
         contents = file.read()
 
     logger.debug(f"VimGPT opened file: {args.filename}")
-    return vimgpt(args.filename, contents, args.command, args.socket)
+    return vimgpt(args.filename, contents, args.command, args.socket, args.max_calls, args.delay_seconds)
 
 
 if __name__ == "__main__":
