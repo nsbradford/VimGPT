@@ -46,3 +46,22 @@ jobs:
       run: |
         poetry run black --check .
 
+  check-mypy:
+    name: Check MyPy Type Annotations
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.11
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+    - name: Install dependencies using Poetry
+      run: |
+        poetry install
+    - name: Run MyPy type check
+      run: |
+        poetry run mypy .

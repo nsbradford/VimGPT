@@ -38,3 +38,7 @@ ignore = [
     "E712",  # Allow using if x == False, as it's not always equivalent to if x.
     "E501",  # Supress line-too-long warnings: trust black's judgement on this one.
 ]
+
+[[tool.mypy.overrides]]
+module = 'vimgpt'
+ignore_missing_imports = true

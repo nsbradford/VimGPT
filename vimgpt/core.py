@@ -1,5 +1,5 @@
 import time
-from typing import Callable
+from typing import Callable, List
 
 from vimgpt.llm import llm_get_keystrokes
 from vimgpt.utils import extract_cmd_content, render_text
@@ -13,7 +13,7 @@ def vim_gpt(
     max_calls: int = 100,
     delay_seconds: int = 0,
 ):
-    history = []
+    history: List[str] = []
 
     with get_vim() as nvim:
         nvim.command("setlocal buftype=nofile")
