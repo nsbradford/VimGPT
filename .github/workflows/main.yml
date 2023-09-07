@@ -1,14 +1,9 @@
-# .github/workflows/ci.yml
-
-name: CI
-
+name: main
 on:
   push:
-    branches:
-      - '*'
+    branches: [main]
   pull_request:
-    branches:
-      - '*'
+    branches: [main]
 
 jobs:
   unit-tests:
