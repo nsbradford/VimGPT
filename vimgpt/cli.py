@@ -2,6 +2,7 @@ import argparse
 import logging
 
 import vimgpt
+from vimgpt.core import vimgpt_agent
 
 
 def main():
@@ -42,16 +43,17 @@ def main():
 
     args = parser.parse_args()
 
-    logging_level = logging.DEBUG if args.verbose else logging.INFO
+    # logging_level = logging.DEBUG if args.verbose else logging.INFO
+    logging_level = logging.INFO
     logging.basicConfig(level=logging_level)
     logger = logging.getLogger(__name__)
 
     with open(args.filepath, "r") as file:
         contents = file.read()
 
-    logger.debug(f"VimGPT opened file: {args.filename}")
-    return vimgpt(
-        args.filename,
+    logger.debug(f"VimGPT opened file: {args.filepath}")
+    return vimgpt_agent(
+        args.filepath,
         contents,
         args.command,
         args.socket,

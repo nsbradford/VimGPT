@@ -108,9 +108,10 @@ mypy vimgpt
 ```
 
 ## Roadmap
+- logger not working
+- More examples
+  - test on multi-page files
+  - Regex search and replace
+- Demo video
 - Open issues
   - sometimes gets confused and will enter infinite loops because of the current naive approach to history, `$ vimgpt --socket '/tmp/nvimsocket' tests/samples/README.md "Edit to recommend vim instead of emacs."`
-- in-memory vs file system options
-- pyargs
-- test on multi-page files
-- Cool demo

@@ -11,7 +11,7 @@ from vimgpt.utils import extract_cmd_content, render_text
 logger = logging.getLogger(__name__)
 
 
-def vimgpt(
+def vimgpt_agent(
     filename: str,
     content: str,
     command: str,
