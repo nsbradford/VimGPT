@@ -88,4 +88,3 @@ ruff check . --fix
 - in-memory vs file system options
 - test on multi-page files
 - Cool demo
-- CI
