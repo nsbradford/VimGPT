@@ -46,9 +46,16 @@ pip install -r requirements.txt
 ```
 
 ## Demo
+First make sure it's installed
+```bash
+poetry shell
+poetry install
+```
+
+
 To run with headless vim:
 ```bash
-python demo_headless.py
+vimgpt_demo_headless
 ```
 
 To attach to a running Neovim instance so you can view what's happening in real-time as the agent does:
@@ -56,7 +63,7 @@ To attach to a running Neovim instance so you can view what's happening in real-
 NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim
 
 # in separate terminal
-python demo_attached.py
+vimgpt_demo_attached
 ```
 
 ## Publish to PyPI
@@ -68,12 +75,9 @@ poetry config pypi-token.pypi <YOUR_PYPI_TOKEN> # if it's your first time
 poetry publish
 ```
 
-
-
 ## Roadmap
 - pyargs
 - in-memory vs file system options
 - test on multi-page files
 - Cool demo
 - CI
-- deploy on PyPI
