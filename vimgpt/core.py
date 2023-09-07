@@ -1,3 +1,4 @@
+import time
 from typing import Callable
 
 from vimgpt.llm import llm_get_keystrokes
@@ -9,7 +10,7 @@ def vim_gpt(
     filename: str,
     content: str,
     prompt: str,
-    max_calls: int = 10,
+    max_calls: int = 100,
     delay_seconds: int = 0,
 ):
     history = []
@@ -20,9 +21,7 @@ def vim_gpt(
         nvim.current.buffer[:] = content.split("\n")
         for i in range(max_calls):
             buf = "\n".join(nvim.current.buffer[:])
-            (line, col) = nvim.current.window.cursor
-            print(f"LLM calling render_text with line={line}, col={col}")
-            rendered = render_text(filename, buf, line, col, history)
+            rendered = render_text(filename, buf, nvim.current.window.cursor, history)
             print(f"Current state at iteration {i}:\n{rendered}")
             raw_llm_text = llm_get_keystrokes(
                 [
@@ -38,15 +37,11 @@ def vim_gpt(
                 break
             else:
                 # this gets the command to show up in the UI
-
                 nvim.command(cmd)
                 # Wait for a few seconds so you can capture the action (for screen recording)
                 if delay_seconds > 0:
-                    import time
-
                     time.sleep(delay_seconds)
 
-        (line, col) = nvim.current.window.cursor
-        final = render_text(filename, buf, line, col, history)
+        final = render_text(filename, buf, nvim.current.window.cursor, history)
         print(f"LLM exited vim. Final state:\n{final}")
         return buf
