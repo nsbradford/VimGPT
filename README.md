@@ -28,9 +28,17 @@ pip install vimgpt
 ## Usage
 
 ### CLI / Demo
+
+
+First make sure it's installed
+```bash
+poetry shell
+poetry install
 ```
-$ vimgpt --help       
-usage: vimgpt [-h] [--socket SOCKET] [--verbose] filepath command
+
+CLI usage (intended to demo/test):
+```
+$ vimgpt [-h] [--socket SOCKET] [--verbose] filepath command
 
 VimGPT Entry Point
 
@@ -42,23 +50,13 @@ options:
   -h, --help            show this help message and exit
   --socket SOCKET, -s SOCKET
                         Path to nvim socket of running nvim process. If left empty, VimGPT will run in
-                        headless mode.
+                        headless mode. Suggested value: '/tmp/nvimsocket'.
   --verbose, -v         Sets logging level to debug.
 ```
 
-
-CLI usage (intended to demo/test):
-
-First make sure it's installed
-```bash
-poetry shell
-poetry install
-```
-
-
 To run with headless vim:
 ```bash
-vimgpt samples/README.md "Edit the contents of the README file to recommend Vim as the best text editor."
+vimgpt tests/samples/README.md "Edit the contents of the README file to recommend Vim as the best text editor."
 ```
 
 To attach to a running Neovim instance so you can view what's happening in real-time as the agent does:
@@ -66,7 +64,7 @@ To attach to a running Neovim instance so you can view what's happening in real-
 NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim
 
 # in separate terminal
-vimgpt_demo_attached
+vimgpt --socket '/tmp/nvimsocket' tests/samples/README.md "Edit the contents of the README file to recommend Vim as the best text editor."
 ```
 
 

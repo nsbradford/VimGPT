@@ -22,7 +22,7 @@ def main():
         "-s",
         type=str,
         default=None,
-        help="Path to nvim socket of running nvim process. If left empty, VimGPT will run in headless mode.",
+        help="Path to nvim socket of running nvim process. If left empty, VimGPT will run in headless mode. Suggested value: '/tmp/nvimsocket'.",
     )
     parser.add_argument(
         "--verbose", "-v", action="store_true", help="Sets logging level to debug."
@@ -44,8 +44,9 @@ def main():
     #     logger.info("Running in headless mode")
 
     def get_vim():
+        # 
         return (
-            pynvim.attach("socket", path="/tmp/nvimsocket")
+            pynvim.attach("socket", path=args.socket)
             if args.socket
             else pynvim.attach("child", argv=["nvim", "--embed", "--headless"])
         )
