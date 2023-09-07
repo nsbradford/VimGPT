@@ -79,8 +79,8 @@ poetry publish
 Use ruff + black.
 
 ```bash
-ruff check . --fix
 black .
+ruff check . --fix
 ```
 
 ## Roadmap
