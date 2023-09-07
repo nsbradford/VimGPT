@@ -1,9 +1,6 @@
 import argparse
 import logging
 
-import vimgpt
-from vimgpt.core import vimgpt_agent
-
 
 def main():
     parser = argparse.ArgumentParser(description="VimGPT Entry Point")
@@ -11,7 +8,9 @@ def main():
     # Required arguments
     parser.add_argument("filepath", type=str, help="File for VimGPT to open.")
     parser.add_argument(
-        "command", type=str, help="Task for VimGPT to perform on the file."
+        "command",
+        type=str,
+        help="Task for VimGPT to perform on the file, in natural language, e.g. 'Rename Bob to Bill in paragraph 2`, make arg 'user' optional on line 34'.",
     )
 
     # Optional arguments
@@ -49,7 +48,7 @@ def main():
     logger = logging.getLogger(__name__)
 
     with open(args.filepath, "r") as file:
-        contents = file.read()
+        file.read()
 
     logger.debug(f"VimGPT opened file: {args.filepath}")
     return vimgpt_agent(
