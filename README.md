@@ -1,7 +1,11 @@
 # VimGPT
 Prototype LLM agent with direct Vim access, using [neovim/pynvim](https://github.com/neovim/pynvim).
 
-![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/nsbradford/vimgpt/main.yml?label=CI%20tests) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![PyPI - Version](https://img.shields.io/pypi/v/vimgpt)
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/nsbradford/vimgpt/main.yml?label=CI%20tests)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/n_s_bradford)
+
 
 ## Why?
 There are two common options for using LLM agents to edit files:
