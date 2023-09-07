@@ -44,7 +44,7 @@ def main():
     #     logger.info("Running in headless mode")
 
     def get_vim():
-        # 
+        #
         return (
             pynvim.attach("socket", path=args.socket)
             if args.socket

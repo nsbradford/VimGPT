@@ -86,33 +86,25 @@ poetry install
 poetry env list
 ```
 
-(Deprecated) Old version using pyenv/virtualenv
-```bash
-pyenv install 3.11:latest
-pyenv virtualenv 3.11 k-llm
-pyenv activate k-llm
-pip install -r requirements.txt
-```
 
 ### Publish to PyPI
 To update the package on PyPI (https://pypi.org/project/vimgpt):
-
 ```bash
 poetry build
 poetry config pypi-token.pypi YOUR_PYPI_TOKEN
 poetry publish
 ```
 
-### Linting and Formatting
-Use ruff + black.
+### Linting, Formatting, Typechecking
+Use ruff + black + mypy.
 
 ```bash
 black .
 ruff check . --fix
+mypy vimgpt
 ```
 
 ## Roadmap
-- CLI
 - in-memory vs file system options
 - pyargs
 - test on multi-page files
