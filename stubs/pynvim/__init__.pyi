@@ -1,0 +1,13 @@
+import logging
+from _typeshed import Incomplete
+from pynvim.api import Nvim as Nvim, NvimError as NvimError
+from pynvim.msgpack_rpc import ErrorResponse as ErrorResponse, child_session as child_session, socket_session as socket_session, stdio_session as stdio_session, tcp_session as tcp_session
+from pynvim.plugin import Host as Host, autocmd as autocmd, command as command, decode as decode, encoding as encoding, function as function, plugin as plugin, rpc_export as rpc_export, shutdown_hook as shutdown_hook
+from pynvim.util import VERSION as VERSION, Version as Version
+
+def start_host(session: Incomplete | None = ...) -> None: ...
+def attach(session_type, address: Incomplete | None = ..., port: Incomplete | None = ..., path: Incomplete | None = ..., argv: Incomplete | None = ..., decode: Incomplete | None = ...): ...
+def setup_logging(name) -> None: ...
+
+class NullHandler(logging.Handler):
+    def emit(self, record) -> None: ...

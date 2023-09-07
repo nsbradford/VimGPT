@@ -39,6 +39,13 @@ ignore = [
     "E501",  # Supress line-too-long warnings: trust black's judgement on this one.
 ]
 
+[tool.mypy]
+mypy_path = "stubs"
+
 [[tool.mypy.overrides]]
-module = 'vimgpt'
-ignore_missing_imports = true
+module = 'pynvim.*'
+ignore_errors = true
+
+# [[tool.mypy.overrides]]
+# module = 'vimgpt.*'
+# ignore_missing_imports = true
