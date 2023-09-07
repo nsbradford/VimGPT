@@ -1,8 +1,8 @@
 import pynvim
 
-from .core import vim_gpt
-from .examples import fileContents
-from .prompts import PROMPT_VIM_GPT
+from vimgpt.core import vim_gpt
+from vimgpt.examples import fileContents
+from vimgpt.prompts import PROMPT_VIM_GPT
 
 
 def get_vim():
