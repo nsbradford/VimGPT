@@ -1,6 +1,8 @@
 # VimGPT
 Prototype LLM agent with direct Vim access, using [neovim/pynvim](https://github.com/neovim/pynvim).
 
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/nsbradford/vimgpt/main.yml?label=CI%20tests) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ## Why?
 There are two common options for using LLM agents to edit files:
 1. **Rewrite the entire file**: reliable, but very expensive (in time and tokens), and for small changes/big files it is incredibly wasteful and difficult to interpret where the change was made.

@@ -39,6 +39,10 @@ ignore = [
     "E501",  # Supress line-too-long warnings: trust black's judgement on this one.
 ]
 
+exclude = [
+ 'stubs',
+]
+
 [tool.mypy]
 mypy_path = "stubs"
 

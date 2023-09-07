@@ -1,4 +1,5 @@
 import pynvim
+
 from vimgpt.core import vim_gpt
 from vimgpt.examples import fileContents
 from vimgpt.prompts import PROMPT_VIM_GPT
