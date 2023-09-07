@@ -19,22 +19,16 @@ There are two common options for using LLM agents to edit files:
 - GPT-3.5 struggles with doing things logically in Vim, so you are limited to GPT-4. (Claude-2.0 untested so far).
 
 ## Installation
-TODO, will be
+
+You'll need to [install neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim), if you're on MacOS you can simply `brew install neovim`. Then:
+
 ```bash
-brew install neovim
-pip install vimgpt
+pip install vimgpt # or poetry add vimgpt
 ```
 
 ## Usage
 
-### CLI / Demo
-
-
-First make sure it's installed
-```bash
-poetry shell
-poetry install
-```
+### As a CLI / Demo
 
 CLI usage (intended to demo/test):
 ```
@@ -65,6 +59,15 @@ NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim
 
 # in separate terminal
 vimgpt --socket '/tmp/nvimsocket' tests/samples/README.md "Edit the contents of the README file to recommend Vim as the best text editor."
+```
+
+### As a library
+
+```python
+from vimgpt import exec_vimgpt 
+
+exec_vimgpt(get_vim, args.filepath, contents, PROMPT_VIM_GPT(args.command))
+
 ```
 
 
@@ -105,6 +108,8 @@ mypy vimgpt
 ```
 
 ## Roadmap
+- Open issues
+  - sometimes gets confused and will enter infinite loops because of the current naive approach to history, `$ vimgpt --socket '/tmp/nvimsocket' tests/samples/README.md "Edit to recommend vim instead of emacs."`
 - in-memory vs file system options
 - pyargs
 - test on multi-page files

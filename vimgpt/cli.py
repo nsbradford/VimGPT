@@ -1,10 +1,7 @@
 import argparse
 import logging
 
-import pynvim
-
-from vimgpt.core import exec_vimgpt
-from vimgpt.prompts import PROMPT_VIM_GPT
+import vimgpt
 
 
 def main():
@@ -43,19 +40,11 @@ def main():
     # else:
     #     logger.info("Running in headless mode")
 
-    def get_vim():
-        #
-        return (
-            pynvim.attach("socket", path=args.socket)
-            if args.socket
-            else pynvim.attach("child", argv=["nvim", "--embed", "--headless"])
-        )
-
     with open(args.filepath, "r") as file:
         contents = file.read()
 
-    logger.info(f"VimGPT opened file: {args.filepath}")
-    return exec_vimgpt(get_vim, args.filepath, contents, PROMPT_VIM_GPT(args.command))
+    logger.debug(f"VimGPT opened file: {args.filename}")
+    return vimgpt(args.filename, contents, args.command, args.socket)
 
 
 if __name__ == "__main__":

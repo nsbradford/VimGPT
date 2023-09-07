@@ -1,21 +1,33 @@
 import logging
 import time
-from typing import Callable, List, Optional
+from typing import List, Optional
+
+import pynvim
 
 from vimgpt.llm import llm_get_keystrokes
+from vimgpt.prompts import PROMPT_VIM_GPT
 from vimgpt.utils import extract_cmd_content, render_text
 
 logger = logging.getLogger(__name__)
 
 
-def exec_vimgpt(
-    get_vim: Callable,
+def vimgpt(
     filename: str,
     content: str,
-    prompt: str,
+    command: str,
+    socket: Optional[str],
     max_calls: int = 1000,
     delay_seconds: Optional[int] = None,
 ):
+    def get_vim():
+        #
+        return (
+            pynvim.attach("socket", path=socket)
+            if socket
+            else pynvim.attach("child", argv=["nvim", "--embed", "--headless"])
+        )
+
+    prompt = PROMPT_VIM_GPT(command)
     history: List[str] = []
     with get_vim() as nvim:
         nvim.command("setlocal buftype=nofile")
