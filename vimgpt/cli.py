@@ -25,12 +25,20 @@ def main():
         "--verbose", "-v", action="store_true", help="Sets logging level to debug."
     )
     # Add max_calls argument
-    parser.add_argument('--max-calls', type=int, default=1000, 
-                        help='Maximum number of calls. Default is 1000.')
+    parser.add_argument(
+        "--max-calls",
+        type=int,
+        default=1000,
+        help="Maximum number of calls. Default is 1000.",
+    )
 
     # Add delay_seconds argument
-    parser.add_argument('--delay-seconds', type=int, default=None, 
-                        help='Delay in seconds. If not provided, defaults to None.')
+    parser.add_argument(
+        "--delay-seconds",
+        type=int,
+        default=None,
+        help="Delay in seconds. If not provided, defaults to None.",
+    )
 
     args = parser.parse_args()
 
@@ -42,7 +50,14 @@ def main():
         contents = file.read()
 
     logger.debug(f"VimGPT opened file: {args.filename}")
-    return vimgpt(args.filename, contents, args.command, args.socket, args.max_calls, args.delay_seconds)
+    return vimgpt(
+        args.filename,
+        contents,
+        args.command,
+        args.socket,
+        args.max_calls,
+        args.delay_seconds,
+    )
 
 
 if __name__ == "__main__":
