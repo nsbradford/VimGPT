@@ -1,5 +1,4 @@
 from typing import Callable, List
-import pynvim
 import openai
 import os
 import re
@@ -8,9 +7,6 @@ def extract_cmd_content(s):
     pattern = r'<cmd>(.*?)</cmd>'
     match = re.search(pattern, s, re.DOTALL)  # re.DOTALL makes . match newlines as well
     return match.group(1) if match else None
-    # Test
-    # mixed_string = "... some content ... <cmd>YOUR_CONTENT_HERE</cmd> ... some other content ..."
-    # print(extract_cmd_content(mixed_string))  # Outputs: YOUR_CONTENT_HERE
 
   
 def add_line_numbers(text):
@@ -25,8 +21,10 @@ def render_text(filename, text, rowOneIdx, colOneIdx, history: List[str]):
     with_cursor = insert_cursor(text, rowOneIdx, colOneIdx)
     with_line_numbers = add_line_numbers(with_cursor)
     cmdHistory = '\n'.join(history)
-    return f"History of commands you ran:\n{cmdHistory}\n\n\n```{filename}\n{with_line_numbers}\n```\nCol {colOneIdx} of {cols}; Line {rowOneIdx} of {len(lines)};\n"
-    # Cursor is at {rowOneIdx}:
+    prefix =  f"History of commands you ran:\n{cmdHistory}\n\n\n"
+    filewrapped = f"```{filename}\n{with_line_numbers}\n```"
+    postfix = f"\nCol {colOneIdx} of {cols}; Line {rowOneIdx} of {len(lines)};\n"
+    return prefix + filewrapped + postfix
 
 
 def insert_cursor(text, rowOneIdx, col):
@@ -43,8 +41,8 @@ def insert_cursor(text, rowOneIdx, col):
     if col < 0 or col > len(rows[row]):
         raise ValueError("Invalid column.")
     
-    # Calculate position to insert cursor
-    pos = sum(len(r) + 1 for r in rows[:row]) + col + 1 # +1 accounts for newline characters
+    # Calculate position to insert cursor; +1 accounts for newline characters
+    pos = sum(len(r) + 1 for r in rows[:row]) + col + 1
     
     # Insert the combining low line character at the determined position
     return text[:pos] + '\u0332' + text[pos:]
@@ -67,7 +65,9 @@ def llm_get_keystrokes(messages):
   return parsed
 
 
-def vim_gpt(get_vim: Callable, filename: str, content: str, prompt: str, max_calls: int = 10, delay_seconds: int = 0):
+def vim_gpt(get_vim: Callable, filename: str, content: str, prompt: str,
+             max_calls: int = 10,
+             delay_seconds: int = 0):
   history = []
   
   with get_vim() as nvim:
@@ -93,7 +93,7 @@ def vim_gpt(get_vim: Callable, filename: str, content: str, prompt: str, max_cal
         # this gets the command to show up in the UI
         
         nvim.command(cmd)
-        # Wait for a few seconds so you can capture the action (useful for screen recording)
+        # Wait for a few seconds so you can capture the action (for screen recording)
         if delay_seconds > 0:
            import time
            time.sleep(delay_seconds)

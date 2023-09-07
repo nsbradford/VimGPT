@@ -45,7 +45,7 @@ pyenv activate k-llm
 pip install -r requirements.txt
 ```
 
-## Demo
+### Demo
 First make sure it's installed
 ```bash
 poetry shell
@@ -66,13 +66,18 @@ NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim
 vimgpt_demo_attached
 ```
 
-## Publish to PyPI
+### Publish to PyPI
 To update the package on PyPI (https://pypi.org/project/vimgpt):
 
 ```bash
 poetry build
 poetry config pypi-token.pypi <YOUR_PYPI_TOKEN> # if it's your first time
 poetry publish
+```
+
+### Linting and Formatting
+```bash
+ruff check . --fix
 ```
 
 ## Roadmap

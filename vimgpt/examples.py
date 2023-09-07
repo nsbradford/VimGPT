@@ -1,3 +1,4 @@
+# ruff: noqa: E501
 
 fileContents = """# Demo project
 
