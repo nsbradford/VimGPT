@@ -25,6 +25,51 @@ brew install neovim
 pip install vimgpt
 ```
 
+## Usage
+
+### CLI / Demo
+```
+$ vimgpt --help       
+usage: vimgpt [-h] [--socket SOCKET] [--verbose] filepath command
+
+VimGPT Entry Point
+
+positional arguments:
+  filepath              File for VimGPT to open.
+  command               Task for VimGPT to perform on the file.
+
+options:
+  -h, --help            show this help message and exit
+  --socket SOCKET, -s SOCKET
+                        Path to nvim socket of running nvim process. If left empty, VimGPT will run in
+                        headless mode.
+  --verbose, -v         Sets logging level to debug.
+```
+
+
+CLI usage (intended to demo/test):
+
+First make sure it's installed
+```bash
+poetry shell
+poetry install
+```
+
+
+To run with headless vim:
+```bash
+vimgpt samples/README.md "Edit the contents of the README file to recommend Vim as the best text editor."
+```
+
+To attach to a running Neovim instance so you can view what's happening in real-time as the agent does:
+```bash
+NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim
+
+# in separate terminal
+vimgpt_demo_attached
+```
+
+
 ## Development
 This project uses [poetry](https://python-poetry.org/).
 
@@ -51,33 +96,12 @@ pyenv activate k-llm
 pip install -r requirements.txt
 ```
 
-### Demo
-First make sure it's installed
-```bash
-poetry shell
-poetry install
-```
-
-
-To run with headless vim:
-```bash
-vimgpt_demo_headless
-```
-
-To attach to a running Neovim instance so you can view what's happening in real-time as the agent does:
-```bash
-NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim
-
-# in separate terminal
-vimgpt_demo_attached
-```
-
 ### Publish to PyPI
 To update the package on PyPI (https://pypi.org/project/vimgpt):
 
 ```bash
 poetry build
-poetry config pypi-token.pypi <YOUR_PYPI_TOKEN> # if it's your first time
+poetry config pypi-token.pypi YOUR_PYPI_TOKEN
 poetry publish
 ```
 
@@ -90,7 +114,8 @@ ruff check . --fix
 ```
 
 ## Roadmap
-- pyargs
+- CLI
 - in-memory vs file system options
+- pyargs
 - test on multi-page files
 - Cool demo

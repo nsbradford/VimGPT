@@ -1,28 +1,29 @@
+import logging
 import time
-from typing import Callable, List
+from typing import Callable, List, Optional
 
 from vimgpt.llm import llm_get_keystrokes
 from vimgpt.utils import extract_cmd_content, render_text
 
+logger = logging.getLogger(__name__)
 
-def vim_gpt(
+
+def exec_vimgpt(
     get_vim: Callable,
     filename: str,
     content: str,
     prompt: str,
-    max_calls: int = 100,
-    delay_seconds: int = 0,
+    max_calls: int = 1000,
+    delay_seconds: Optional[int] = None,
 ):
     history: List[str] = []
-
     with get_vim() as nvim:
         nvim.command("setlocal buftype=nofile")
         nvim.command("set number")
         nvim.current.buffer[:] = content.split("\n")
-        for i in range(max_calls):
+        for _ in range(max_calls):
             buf = "\n".join(nvim.current.buffer[:])
             rendered = render_text(filename, buf, nvim.current.window.cursor, history)
-            print(f"Current state at iteration {i}:\n{rendered}")
             raw_llm_text = llm_get_keystrokes(
                 [
                     {"role": "system", "content": prompt},
@@ -30,18 +31,17 @@ def vim_gpt(
                 ]
             )
             cmd = extract_cmd_content(raw_llm_text)
-            print(f'LLM calling cmd: "{cmd}"')
+            logger.info(f"VimGPT calling cmd: {cmd}")
             history.append(cmd)
+            # this gets the command to show up in the UI
             nvim.command(f'echom "{cmd}"')
             if cmd == "wq":
                 break
             else:
-                # this gets the command to show up in the UI
                 nvim.command(cmd)
-                # Wait for a few seconds so you can capture the action (for screen recording)
-                if delay_seconds > 0:
+                if delay_seconds:
+                    # useful for demos/debugging
                     time.sleep(delay_seconds)
 
-        final = render_text(filename, buf, nvim.current.window.cursor, history)
-        print(f"LLM exited vim. Final state:\n{final}")
+        logger.info("VimGPT exited vim.")
         return buf
