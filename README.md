@@ -76,8 +76,11 @@ poetry publish
 ```
 
 ### Linting and Formatting
+Use ruff + black.
+
 ```bash
 ruff check . --fix
+black .
 ```
 
 ## Roadmap

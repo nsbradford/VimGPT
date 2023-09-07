@@ -1,10 +1,13 @@
 # ruff: noqa: E501
 
+
 def PROMPT_VIM_GPT(goal: str) -> str:
-  """
-  Removed <thoughts>CONCISE thoughts about what to do next</thoughts> tag for faster performance.
-  """
-  return f'You are VimGPT, an expert software developer  with the following goal: \n<goal>\n{goal}\n</goal>' + """
+    """
+    Removed <thoughts>CONCISE thoughts about what to do next</thoughts> tag for faster performance.
+    """
+    return (
+        f"You are VimGPT, an expert software developer  with the following goal: \n<goal>\n{goal}\n</goal>"
+        + """
 
 RULES:
 - You interact with the world through structured Vim commands, which will be routed through the Python package pynvim and executed via `nvim.command(<your command>)`.
@@ -26,3 +29,4 @@ When you are finished, close the session with "wq" command.
 
 Here is the file, which is already open in nvim:
 """
+    )

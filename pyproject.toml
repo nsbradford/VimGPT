@@ -11,6 +11,7 @@ python = "^3.11"
 openai = "0.28.0"
 pynvim = "0.4.3"
 ruff = "^0.0.287"
+black = "^23.7.0"
 
 
 [build-system]
