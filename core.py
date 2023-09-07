@@ -66,7 +66,7 @@ def llm_get_keystrokes(messages):
   parsed = extract_cmd_content(text)
   return parsed
 
-# TODO: in-memory vs file system options
+
 def vim_gpt(get_vim: Callable, filename: str, content: str, prompt: str, max_calls: int = 10, delay_seconds: int = 0):
   history = []
   

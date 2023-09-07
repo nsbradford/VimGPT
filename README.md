@@ -13,13 +13,19 @@ There are two common options for using LLM agents to edit files:
 - GPT-3.5 struggles with doing things logically in Vim, so you are limited to GPT-4. (Claude-2.0 untested so far).
 
 ## Installation
+TODO, will be
 ```bash
 brew install neovim
+pip install vimgpt
+```
 
-pyenv install 3.11:latest
-pyenv virtualenv 3.11 k-llm
-pyenv activate k-llm
-pip install -r requirements.txt
+## Development
+This project uses [poetry](https://python-poetry.org/).
+
+```bash
+
+brew install poetry # typical install methods didn't work for me
+poetry install
 ```
 
 ## Demo
@@ -35,3 +41,11 @@ NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim
 # in separate terminal
 python demo_attached.py
 ```
+
+## Roadmap
+- pyargs
+- in-memory vs file system options
+- test on multi-page files
+- Cool demo
+- CI
+- deploy on PyPI
