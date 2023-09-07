@@ -28,6 +28,14 @@ brew install poetry # typical install methods didn't work for me
 poetry install
 ```
 
+Old version using pyenv/virtualenv
+```bash
+pyenv install 3.11:latest
+pyenv virtualenv 3.11 k-llm
+pyenv activate k-llm
+pip install -r requirements.txt
+```
+
 ## Demo
 To run with headless vim:
 ```bash
