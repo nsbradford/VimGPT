@@ -21,8 +21,6 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 vimgpt = "vimgpt.cli:main"
-# vimgpt_demo_headless = "vimgpt.scripts.demo_headless:main"
-# vimgpt_demo_attached = "vimgpt.scripts.demo_attached:main"
 
 [tool.ruff]
 # Same as Black.
