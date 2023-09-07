@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "vimgpt"
-version = "0.1.0"
+version = "0.1.1"
 description = "LLM agent with direct Vim access using neovim/pynvim"
 authors = ["nsbradford <nsbradford@gmail.com>"]
 license = "MIT license"
