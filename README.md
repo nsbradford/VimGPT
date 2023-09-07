@@ -23,12 +23,21 @@ pip install vimgpt
 This project uses [poetry](https://python-poetry.org/).
 
 ```bash
+# If you don't already have 3.11 installed
+pyenv install 3.11:latest
 
-brew install poetry # typical install methods didn't work for me
+# typical poetry install methods didn't work for me
+brew install poetry 
+
+# this will create a .venv in the project directory.
+# it should automatically check the right version is installed.
 poetry install
+
+# view info about your new venv
+poetry env list
 ```
 
-Old version using pyenv/virtualenv
+(Deprecated) Old version using pyenv/virtualenv
 ```bash
 pyenv install 3.11:latest
 pyenv virtualenv 3.11 k-llm
@@ -49,6 +58,17 @@ NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim
 # in separate terminal
 python demo_attached.py
 ```
+
+## Publish to PyPI
+To update the package on PyPI (https://pypi.org/project/vimgpt):
+
+```bash
+poetry build
+poetry config pypi-token.pypi <YOUR_PYPI_TOKEN> # if it's your first time
+poetry publish
+```
+
+
 
 ## Roadmap
 - pyargs
