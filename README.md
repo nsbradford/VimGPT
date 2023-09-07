@@ -109,7 +109,9 @@ mypy vimgpt
 
 ## Roadmap
 - logger not working
+- make filename arg optional (on cmd line and elsewhere)
 - More examples
+  - Call it WITHIN neovim itself while you're working on something
   - test on multi-page files
   - Regex search and replace
 - Demo video

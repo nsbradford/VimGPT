@@ -12,7 +12,7 @@ def main():
     parser.add_argument(
         "command",
         type=str,
-        help="Task for VimGPT to perform on the file, in natural language, e.g. 'Rename Bob to Bill in paragraph 2`, make arg 'user' optional on line 34'.",
+        help="Task for VimGPT to perform on the file, in natural language: 'Rename Bob to Bill in paragraph 2`, make arg 'user' optional on line 34', 'rewrite this in iambic pentameter', etc.",
     )
 
     # Optional arguments
