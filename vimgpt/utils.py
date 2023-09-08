@@ -13,7 +13,9 @@ def add_line_numbers(text):
     return "\n".join([f"{idx}:{line}" for idx, line in enumerate(lines, 1)])
 
 
-def render_text(file_path: Optional[str], text: str, cursor: Tuple[int, int], history: List[str]):
+def render_text(
+    file_path: Optional[str], text: str, cursor: Tuple[int, int], history: List[str]
+):
     (rowOneIdx, colOneIdx) = cursor
     # insert the cursor, then add line numbers.
     lines = text.split("\n")
