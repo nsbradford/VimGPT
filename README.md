@@ -137,15 +137,18 @@ pytest --verbose -vv
 ```
 
 ## Roadmap
+- turn into langchain tool/agent
+  - integrate promptlayer
+  - Abstract over LLM provider
+- Multi-line
+  - test
+  - Fix relative line numbers
 - More examples
   - improve the basic demo
   - Regex search and replace
   - test on multi-page files
   - Demo video
   - Call it WITHIN neovim itself while you're working on something
-- turn into langchain tool/agent
-  - integrate promptlayer
-  - Abstract over LLM provider
 - Async/await instead of blocking (at least for LLM calls - does pynvim support?)
 - Open issues
   - sometimes gets confused and will enter infinite loops because of the current naive approach to history, `$ vimgpt --socket '/tmp/nvimsocket' tests/samples/README.md "Edit to recommend vim instead of emacs."`
