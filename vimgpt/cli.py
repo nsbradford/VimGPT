@@ -22,12 +22,14 @@ def main():
     logging.basicConfig(level=args.loglevel)
     logger = logging.getLogger(__name__)
 
-    with open(args.filepath, "r") as file:
-        content = file.read()
-    logger.debug(f"VimGPT successfully read file: {args.filepath}")
-    
+    content = ""
+    if args.path is not None:
+        with open(args.path, "r") as file:
+            content = file.read()
+    logger.debug(f"VimGPT successfully read file: {args.path}")
+
     rewritten = vimgpt_agent(
-        args.filepath,
+        args.path,
         content,
         args.command,
         args.socket,
@@ -41,13 +43,17 @@ def main():
     else:
         # If args.output is empty string and args.path is specified, write to args.path
         # If args.output is empty string and args.path is not specified, write to default_output_file
-        output_path = args.path if args.output == "" and args.path else args.output or default_output_file
+        output_path = (
+            args.path
+            if args.output == "" and args.path
+            else args.output or default_output_file
+        )
 
         with open(output_path, "w") as file:
             file.write(rewritten)
-        
+
         logger.info(f"VimGPT: Changes saved to: {output_path}")
-    
+
 
 def _vimgpt_cli_parser(default_output_file):
     parser = argparse.ArgumentParser(description="VimGPT CLI")
@@ -60,10 +66,17 @@ def _vimgpt_cli_parser(default_output_file):
     )
 
     # Optional arguments
-    parser.add_argument("--path", '-p', type=str, default=None, help="File for VimGPT to open. NOTE: for safety, VimGPT will NOT make changes directly to the file unless the --output flag is provided.")
+    parser.add_argument(
+        "--path",
+        "-p",
+        type=str,
+        default=None,
+        help="File for VimGPT to open. NOTE: for safety, VimGPT will NOT make changes directly to the file unless the --output flag is provided.",
+    )
 
     parser.add_argument(
-        "--output", "-o",
+        "--output",
+        "-o",
         nargs="?",
         default=None,  # Placeholder to be checked later
         const="",
@@ -99,7 +112,7 @@ def _vimgpt_cli_parser(default_output_file):
         default=None,
         help="Delay in seconds. If not provided, defaults to None.",
     )
-    
+
     return parser
 
 

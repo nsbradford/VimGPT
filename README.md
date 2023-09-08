@@ -127,7 +127,6 @@ mypy vimgpt
 ```
 
 ## Roadmap
-- make filename arg optional (on cmd line and elsewhere)
 - More examples
   - Call it WITHIN neovim itself while you're working on something
   - test on multi-page files
