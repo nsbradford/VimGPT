@@ -133,7 +133,7 @@ Use ruff + black + mypy + pytest.
 black .
 ruff check . --fix
 mypy vimgpt
-pytest
+pytest --verbose -vv
 ```
 
 ## Roadmap
