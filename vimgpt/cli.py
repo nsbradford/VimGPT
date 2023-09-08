@@ -1,6 +1,8 @@
 import argparse
 import logging
 
+from pynvim import NullHandler
+
 from vimgpt.core import vimgpt_agent
 
 
@@ -24,7 +26,11 @@ def main():
         help="Path to nvim socket of running nvim process. If left empty, VimGPT will run in headless mode. Suggested value: '/tmp/nvimsocket'.",
     )
     parser.add_argument(
-        "--verbose", "-v", action="store_true", help="Sets logging level to debug."
+        "--loglevel",
+        type=str.upper,  # Convert to uppercase for consistent handling
+        choices=["DEBUG", "INFO", "WARNING"],
+        default="WARNING",
+        help="Set the logging level (default: %(default)s)",
     )
     # Add max_calls argument
     parser.add_argument(
@@ -44,15 +50,21 @@ def main():
 
     args = parser.parse_args()
 
-    # logging_level = logging.DEBUG if args.verbose else logging.INFO
-    logging_level = logging.INFO
-    logging.basicConfig(level=logging_level)
+    # Remove the NullHandler from the root logger if it's there.
+    # see: https://github.com/neovim/pynvim/issues/373
+    for handler in logging.root.handlers:
+        if isinstance(handler, NullHandler):
+            logging.root.removeHandler(handler)
+
+    # configuring logging here is fine because CLI is the entry point;
+    # library consumers will import vimgpt.core instead
+    logging.basicConfig(level=args.loglevel)
     logger = logging.getLogger(__name__)
 
     with open(args.filepath, "r") as file:
         content = file.read()
 
-    logger.debug(f"VimGPT opened file: {args.filepath}")
+    logger.debug(f"VimGPT successfully read file: {args.filepath}")
     return vimgpt_agent(
         args.filepath,
         content,
