@@ -31,21 +31,40 @@ pip install vimgpt # or poetry add vimgpt
 ### As a CLI / Demo
 
 CLI usage (intended to demo/test):
-```
-$ vimgpt [-h] [--socket SOCKET] [--verbose] filepath command
 
-VimGPT Entry Point
+```
+$ vimgpt --help                      
+usage: vimgpt [-h] [--path PATH] [--output [OUTPUT]] [--socket SOCKET] [--loglevel {DEBUG,INFO,WARNING}] [--max-calls MAX_CALLS] [--delay-seconds DELAY_SECONDS] command
+
+VimGPT CLI
 
 positional arguments:
-  filepath              File for VimGPT to open.
-  command               Task for VimGPT to perform on the file.
+  command               Task for VimGPT to perform on the file, in natural language: 
+                        'Rename Bob to Bill in paragraph 2`, 
+                        'make arg `user` optional on line 34', 
+                        'rewrite this in iambic pentameter', etc.
 
 options:
   -h, --help            show this help message and exit
+  --path PATH, -p PATH  File for VimGPT to open. 
+                        NOTE: for safety, VimGPT will NOT make changes directly
+                        to the file unless the --output flag is provided.
+  --output [OUTPUT], -o [OUTPUT]
+                        Specify output file. If flag is not provided, 
+                        VimGPT will NOT make changes directly to the file. 
+                        If flag is provided without value, uses the same path as the input file. 
+                        If flag is provided with no value and there is no input file specified, 
+                        will output to 'vimgpt_output.txt'.
   --socket SOCKET, -s SOCKET
-                        Path to nvim socket of running nvim process. If left empty, VimGPT will run in
-                        headless mode. Suggested value: '/tmp/nvimsocket'.
-  --verbose, -v         Sets logging level to debug.
+                        Path to nvim socket of running nvim process. 
+                        If left empty, VimGPT will run in headless mode.
+                        Suggested value: '/tmp/nvimsocket'.
+  --loglevel {DEBUG,INFO,WARNING}
+                        Set the logging level (default: WARNING)
+  --max-calls MAX_CALLS
+                        Maximum number of LLM calls. Default is 1000.
+  --delay-seconds DELAY_SECONDS
+                        Delay in seconds. If not provided, defaults to None.
 ```
 
 To run with headless vim:
@@ -108,7 +127,6 @@ mypy vimgpt
 ```
 
 ## Roadmap
-- logger not working
 - make filename arg optional (on cmd line and elsewhere)
 - More examples
   - Call it WITHIN neovim itself while you're working on something
