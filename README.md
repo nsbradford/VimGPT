@@ -127,7 +127,7 @@ poetry publish
 ```
 
 ### Linting, Formatting, Typechecking, Testing
-Use ruff + black + mypy + pytest.
+Use ruff + black + mypy + pytest. If you're using VSCode, you might want to follow [these instructions](https://scottlarsen.com/2021/06/17/mypy-pyenv-issue-in-VSCode.html) to make sure the mypy extension settings are set to use your active interpreter (the poetry venv).
 
 ```bash
 black .

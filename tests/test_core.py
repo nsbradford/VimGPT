@@ -6,8 +6,6 @@ def test_vimgpt_agent_basic():
     assert result == "The capital of France is Paris."
 
 
-
-
 def test_vimgpt_agent_demo():
     demo_content = """# Demo project
 
@@ -31,5 +29,9 @@ Vim is our recommended text editor for this project. It is lightweight, highly c
 ## Contributing
 - email us at hello@sample.com"""
 
-    result = vimgpt_agent(command="Edit the contents of the README file to recommend Vim as the best text editor.", content=demo_content, file_path="README.md")
+    result = vimgpt_agent(
+        command="Edit the contents of the README file to recommend Vim as the best text editor.",
+        content=demo_content,
+        file_path="README.md",
+    )
     assert result == expected
