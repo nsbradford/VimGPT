@@ -137,12 +137,12 @@ pytest
 ```
 
 ## Roadmap
-- unit test
 - More examples
-  - Call it WITHIN neovim itself while you're working on something
-  - test on multi-page files
+  - improve the basic demo
   - Regex search and replace
+  - test on multi-page files
   - Demo video
+  - Call it WITHIN neovim itself while you're working on something
 - turn into langchain tool/agent
   - integrate promptlayer
   - Abstract over LLM provider

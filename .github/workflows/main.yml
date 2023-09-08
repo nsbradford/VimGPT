@@ -22,6 +22,9 @@ jobs:
     - name: Install dependencies using Poetry
       run: |
         poetry install
+    - name: Install neovim
+      run: |
+        sudo apt install neovim
     - name: Run tests
       run: |
         poetry run pytest
