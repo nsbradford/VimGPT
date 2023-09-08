@@ -1,5 +1,5 @@
 import re
-from typing import List
+from typing import List, Optional, Tuple
 
 
 def extract_cmd_content(s):
@@ -13,7 +13,7 @@ def add_line_numbers(text):
     return "\n".join([f"{idx}:{line}" for idx, line in enumerate(lines, 1)])
 
 
-def render_text(filename, text, cursor, history: List[str]):
+def render_text(file_path: Optional[str], text: str, cursor: Tuple[int, int], history: List[str]):
     (rowOneIdx, colOneIdx) = cursor
     # insert the cursor, then add line numbers.
     lines = text.split("\n")
@@ -22,6 +22,7 @@ def render_text(filename, text, cursor, history: List[str]):
     with_line_numbers = add_line_numbers(with_cursor)
     cmdHistory = "\n".join(history)
     prefix = f"History of commands you ran:\n{cmdHistory}\n\n\n"
+    filename = file_path or ""
     filewrapped = f"```{filename}\n{with_line_numbers}\n```"
     postfix = f"\nCol {colOneIdx} of {cols}; Line {rowOneIdx} of {len(lines)};\n"
     return prefix + filewrapped + postfix

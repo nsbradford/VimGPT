@@ -1,9 +1,10 @@
 import os
+from typing import Dict, List
 
 import openai
 
 
-def llm_get_keystrokes(messages):
+def llm_get_keystrokes(messages: List[Dict[str, str]]) -> str:
     chat_completion = openai.ChatCompletion.create(
         model="gpt-4",
         messages=messages,

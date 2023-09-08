@@ -83,9 +83,9 @@ vimgpt --socket '/tmp/nvimsocket' tests/samples/README.md "Edit the contents of 
 ### As a library
 
 ```python
-from vimgpt import exec_vimgpt 
+from vimgpt import vimgpt_agent 
 
-exec_vimgpt(get_vim, args.filepath, contents, PROMPT_VIM_GPT(args.command))
+vimgpt_agent(get_vim, args.filepath, contents, PROMPT_VIM_GPT(args.command))
 
 ```
 
@@ -127,10 +127,16 @@ mypy vimgpt
 ```
 
 ## Roadmap
+- unit test
 - More examples
   - Call it WITHIN neovim itself while you're working on something
   - test on multi-page files
   - Regex search and replace
-- Demo video
+  - Demo video
+- turn into langchain tool/agent
+  - integrate promptlayer
+  - Abstract over LLM provider
+- Async/await instead of blocking (at least for LLM calls - does pynvim support?)
 - Open issues
   - sometimes gets confused and will enter infinite loops because of the current naive approach to history, `$ vimgpt --socket '/tmp/nvimsocket' tests/samples/README.md "Edit to recommend vim instead of emacs."`
+  - cursor representation (suggested by GPT-4) likely causes some problems/could be optimized. A simple inserted `_` or `|` might work.

@@ -29,9 +29,9 @@ def main():
     logger.debug(f"VimGPT successfully read file: {args.path}")
 
     rewritten = vimgpt_agent(
-        args.path,
-        content,
         args.command,
+        content,
+        args.path,
         args.socket,
         args.max_calls,
         args.delay_seconds,

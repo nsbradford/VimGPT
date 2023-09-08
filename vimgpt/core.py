@@ -13,13 +13,13 @@ logger = logging.getLogger(__name__)
 
 
 def vimgpt_agent(
-    filename: str,
-    content: str,
     command: str,
+    content: str,
+    file_path: Optional[str],
     socket: Optional[str],
     max_calls: int = 1000,
     delay_seconds: Optional[int] = None,
-):
+) -> str:
     def get_vim():
         return (
             pynvim.attach("socket", path=socket)
@@ -35,7 +35,7 @@ def vimgpt_agent(
         nvim.current.buffer[:] = content.split("\n")
         for _ in range(max_calls):
             buf = "\n".join(nvim.current.buffer[:])
-            rendered = render_text(filename, buf, nvim.current.window.cursor, history)
+            rendered = render_text(file_path, buf, nvim.current.window.cursor, history)
             raw_llm_text = llm_get_keystrokes(
                 [
                     {"role": "system", "content": prompt},
