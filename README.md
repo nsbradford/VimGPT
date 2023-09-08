@@ -126,13 +126,14 @@ poetry config pypi-token.pypi YOUR_PYPI_TOKEN
 poetry publish
 ```
 
-### Linting, Formatting, Typechecking
-Use ruff + black + mypy.
+### Linting, Formatting, Typechecking, Testing
+Use ruff + black + mypy + pytest.
 
 ```bash
 black .
 ruff check . --fix
 mypy vimgpt
+pytest
 ```
 
 ## Roadmap

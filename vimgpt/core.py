@@ -15,9 +15,9 @@ logger = logging.getLogger(__name__)
 def vimgpt_agent(
     *,  # force kwargs
     command: str,
-    content: str,
-    file_path: Optional[str],
-    socket: Optional[str],
+    content: str = "",
+    file_path: Optional[str] = None,
+    socket: Optional[str] = None,
     max_calls: int = 1000,
     delay_seconds: Optional[int] = None,
 ) -> str:
