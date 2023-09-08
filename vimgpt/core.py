@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 def vimgpt_agent(
-        *, # force kwargs
+    *,  # force kwargs
     command: str,
     content: str,
     file_path: Optional[str],

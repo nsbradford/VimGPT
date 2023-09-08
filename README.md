@@ -69,7 +69,7 @@ options:
 
 To run with headless vim:
 ```bash
-vimgpt tests/samples/README.md "Edit the contents of the README file to recommend Vim as the best text editor."
+vimgpt "Edit the contents of the README file to recommend Vim as the best text editor." --path tests/samples/README.md --loglevel INFO
 ```
 
 To attach to a running Neovim instance so you can view what's happening in real-time as the agent does:
@@ -77,7 +77,7 @@ To attach to a running Neovim instance so you can view what's happening in real-
 NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim
 
 # in separate terminal
-vimgpt --socket '/tmp/nvimsocket' tests/samples/README.md "Edit the contents of the README file to recommend Vim as the best text editor."
+vimgpt "Edit the contents of the README file to recommend Vim as the best text editor." --path tests/samples/README.md --loglevel INFO --socket '/tmp/nvimsocket' 
 ```
 
 ### As a library
@@ -85,7 +85,16 @@ vimgpt --socket '/tmp/nvimsocket' tests/samples/README.md "Edit the contents of 
 ```python
 from vimgpt import vimgpt_agent 
 
-vimgpt_agent(get_vim, args.filepath, contents, PROMPT_VIM_GPT(args.command))
+original_file_content: str = '???'
+
+new_file_content: str = vimgpt_agent(
+    command='Edit to recommend vim over emacs.',
+    content=original_file_content,
+    file_path='does_not_matter_just_useful_for_prompt.md',
+    # socket=None, # or '/path/to/running/nvim'
+    # max_calls=1000, # can use prevent cycles
+    # delay_seconds=2, # if you want to follow in real-time more easily
+)
 
 ```
 
