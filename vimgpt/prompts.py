@@ -3,7 +3,7 @@ def PROMPT_VIM_GPT(goal: str) -> str:
     Removed <thoughts>CONCISE thoughts about what to do next</thoughts> tag for faster performance.
     """
     return (
-        f"You are VimGPT, an expert software developer  with the following goal: \n<goal>\n{goal}\n</goal>"
+        f"You are VimGPT, an expert software developer with the following goal: \n<goal>\n{goal}\n</goal>"
         + """
 
 RULES:
@@ -20,6 +20,7 @@ Examples:
 - Start search for "pattern": <cmd>/pattern</cmd>
 - Delete a line: <cmd>normal dd</cmd>
 - Move cursor to start of 11th line: <cmd>normal 7G</cmd>
+- Go back to normal mode: <cmd>normal</cmd> (do NOT use <Esc>)
 
 When you are finished, close the session with "wq" command.
 <cmd>wq</cmd>

@@ -5,7 +5,7 @@ from typing import List, Optional, Tuple
 def extract_cmd_content(s):
     pattern = r"<cmd>(.*?)</cmd>"
     match = re.search(pattern, s, re.DOTALL)  # re.DOTALL makes . match newlines as well
-    return match.group(1) if match else None
+    return match.group(1) if match else s
 
 
 def add_line_numbers(text):

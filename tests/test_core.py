@@ -3,7 +3,7 @@ from vimgpt.core import vimgpt_agent
 
 def test_vimgpt_agent_basic():
     result = vimgpt_agent(command="Answer: what is the capital of France?")
-    assert result == "The capital of France is Paris."
+    assert result == "\nThe capital of France is Paris."
 
 
 def test_vimgpt_agent_demo():
@@ -25,7 +25,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Recommendations
 
-Vim is our recommended text editor for this project. It is lightweight, highly customizable and comes with a variety of plugins to enhance software development productivity. Plus, once you get used to its keyboard-centric operation, you'll find that programming in Vim is like writing code in plain English.
+We recommend Vim as the best text editor for software development. It's versatile, efficient, and can greatly boost your productivity once you get over the learning curve. It's especially powerful for development work owing to its keyboard-focused design, numerous plug-ins, and seamless terminal integration. Mastering Vim will definitely give you a cutting-edge in your coding journey.
 ## Contributing
 - email us at hello@sample.com"""
 
