@@ -44,7 +44,7 @@ def vimgpt_agent(
                 ]
             )
             cmd = extract_cmd_content(raw_llm_text)
-            logger.info(f"VimGPT calling cmd: {cmd}")
+            logger.warning(f"VimGPT calling cmd: {cmd}")
             history.append(cmd)
             # this gets the command to show up in the UI
             nvim.command(f'echom "{cmd}"')
@@ -56,5 +56,5 @@ def vimgpt_agent(
                     # useful for demos/debugging
                     time.sleep(delay_seconds)
 
-        logger.info("VimGPT exited vim.")
+        logger.warning("VimGPT exited vim.")
         return buf
