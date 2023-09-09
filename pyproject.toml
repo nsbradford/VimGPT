@@ -12,6 +12,7 @@ openai = "0.28.0"
 pynvim = "0.4.3"
 langchain = {extras = ["llms"], version = "^0.0.285"}
 langchain-experimental = "^0.0.16"
+promptlayer = "^0.2.4"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.0.287"

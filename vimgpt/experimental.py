@@ -2,8 +2,10 @@
 import logging
 from typing import List, Optional
 
+import promptlayer  # noqa: F401 # Don't forget this - see docs
 import pynvim
 from langchain.agents.tools import BaseTool, Tool
+from langchain.callbacks import PromptLayerCallbackHandler
 from langchain.chat_models import ChatOpenAI
 from langchain_experimental.plan_and_execute import (
     PlanAndExecute,
@@ -68,7 +70,15 @@ def vimgpt_agent_langchain(
         tools: List[BaseTool] = [
             Tool(name="vim_cmd", func=exec_vim, description=PROMPT_VIM_GPT_TOOL),
         ]
-        model = ChatOpenAI(temperature=0)
+
+        # TODO caching not working for chat models?
+        # https://discord.com/channels/1038097195422978059/1149840567895867443/1149840567895867443
+        # openai.api_base = "https://oai.hconeai.com/v1"
+        # , headers={"Helicone-Cache-Enabled": "true"}
+        # model='gpt-4',
+        model = ChatOpenAI(
+            temperature=0, callbacks=[PromptLayerCallbackHandler(pl_tags=["langchain"])]
+        )
         planner = load_chat_planner(model)
         executor = load_agent_executor(model, tools, verbose=True)
         agent = PlanAndExecute(planner=planner, executor=executor, verbose=True)

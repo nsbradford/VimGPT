@@ -1452,6 +1452,20 @@ dev = ["pre-commit", "tox"]
 testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
+name = "promptlayer"
+version = "0.2.4"
+description = "PromptLayer is a package to keep track of your GPT models training"
+optional = false
+python-versions = ">=3.8.1,<4.0"
+files = [
+    {file = "promptlayer-0.2.4-py3-none-any.whl", hash = "sha256:9efa2637f9162442c21feda4dca872236c6dfaf428dafa37f3d054713c4f601a"},
+    {file = "promptlayer-0.2.4.tar.gz", hash = "sha256:535f947204ba569899797368ea7556b507e77970de511b4a5aae8300801166ad"},
+]
+
+[package.dependencies]
+requests = ">=2.31.0,<3.0.0"
+
+[[package]]
 name = "protobuf"
 version = "4.24.3"
 description = ""
@@ -2480,4 +2494,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "e86d309faf86909d2f189c05414a537f426741c564f8307def2c0ad6a78124b3"
+content-hash = "e9d6c27f6ddc800e9ec3f9acd886369b23abc88cb2467073fa512a200bbd8fa8"
