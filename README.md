@@ -21,7 +21,7 @@ There are two common options for using LLM agents to edit files:
 
 ## Installation
 
-You'll need to [install neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim), if you're on MacOS you can simply `brew install neovim`. Then:
+You'll need to [install neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim), if you're on MacOS you can simply `brew install neovim`. Then [install from PyPI](https://pypi.org/project/vimgpt/):
 
 ```bash
 pip install vimgpt # or poetry add vimgpt
