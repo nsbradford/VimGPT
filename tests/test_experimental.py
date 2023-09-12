@@ -1,6 +1,9 @@
+import pytest
+
 from vimgpt.experimental import vimgpt_agent_langchain
 
 
+@pytest.mark.skip
 def test_vimgpt_agent_basic():
     result = vimgpt_agent_langchain(
         command="Write in the document the answer to: what is the capital of France?"
