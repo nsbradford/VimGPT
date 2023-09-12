@@ -12,12 +12,13 @@ Prototype LLM agent with direct Vim access, using [neovim/pynvim](https://github
 There are two common options for using LLM agents to edit files:
 1. **Rewrite the entire file**: reliable, but very expensive (in time and tokens), and for small changes/big files it is incredibly wasteful and difficult to interpret where the change was made.
 2. **Make a patch**: using a patch format such as [UDF](https://en.wikipedia.org/wiki/Diff) can make edits much faster and more clear, but is highly error-prone as the current generation of LLMs often make mistakes with line numbers, leading spaces, capitalization, etc.
+3. **Roll your own editor**: this can work pretty well, but 1) the models don't have training data on your custom format, and 2) now you're maintaining a custom format.
 
-**The Solution**: Instead of asking the agent to call a tool with the new contents, give the agent an "Editor" tool which drops into a sub-agent with appropriate context. The simulated editor shows the state of the editor in plaintext, takes individual keystrokes, and reflects updates. This can be conceptualized as individual keystrokes forming tools. And why invent your own when Vim already exists?
+**The Solution**: Instead of asking the agent to call a tool with the new contents, give the agent a "Editor" tool which drops into a sub-agent with appropriate context. The simulated editor shows the state of the editor in plaintext, takes individual keystrokes, and reflects updates. And why invent your own editor when LLMs already know about Vim?
 
 ### Drawbacks
-- This tends to be quite fast, but does consume a lot of requests because each command is its own request.
-- GPT-3.5 struggles with doing things logically in Vim, so you are limited to GPT-4. (Claude-2.0 untested so far).
+- VimGPT's performance varies considerably depending on your chosen agent runtime, as the central challenge is managing history and intention while chaining many commands.
+- VimGPT tends to be quite fast, but does consume a lot of requests because each command is its own request.
 
 ## Installation
 
