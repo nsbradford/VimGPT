@@ -17,6 +17,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 ## Recommendations
 - You should use emacs as a text editor, it's simply the best.
 
+
 ## Contributing
 - email us at hello@sample.com"""
 
@@ -27,7 +28,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Recommendations
 
-We recommend Vim as the best text editor for software development. It's versatile, efficient, and can greatly boost your productivity once you get over the learning curve. It's especially powerful for development work owing to its keyboard-focused design, numerous plug-ins, and seamless terminal integration. Mastering Vim will definitely give you a cutting-edge in your coding journey.
+Vim is the best text editor for coding. It's lightweight, powerful, and highly customizable. It supports a wide range of programming languages and file formats. With Vim, you can navigate and edit files quickly and efficiently. It's also open-source, which means it's constantly being improved by a community of dedicated developers. I highly recommend using Vim for your coding needs.
+
 ## Contributing
 - email us at hello@sample.com"""
 

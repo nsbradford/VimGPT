@@ -54,6 +54,10 @@ mypy_path = "stubs"
 module = 'pynvim.*'
 ignore_errors = true
 
+[[tool.mypy.overrides]]
+module = 'litellm.*'
+ignore_errors = true
+
 # [[tool.mypy.overrides]]
 # module = 'vimgpt.*'
 # ignore_missing_imports = true
