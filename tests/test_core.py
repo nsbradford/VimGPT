@@ -2,8 +2,10 @@ from vimgpt.core import vimgpt_agent
 
 
 def test_vimgpt_agent_basic():
-    result = vimgpt_agent(command="Answer: what is the capital of France?")
-    assert result == "\nThe capital of France is Paris."
+    result = vimgpt_agent(
+        model="gpt-4", command="Answer: what is the capital of France?"
+    )
+    assert result.strip() == "The capital of France is Paris."
 
 
 def test_vimgpt_agent_demo():
@@ -15,6 +17,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 ## Recommendations
 - You should use emacs as a text editor, it's simply the best.
 
+
 ## Contributing
 - email us at hello@sample.com"""
 
@@ -25,11 +28,13 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Recommendations
 
-We recommend Vim as the best text editor for software development. It's versatile, efficient, and can greatly boost your productivity once you get over the learning curve. It's especially powerful for development work owing to its keyboard-focused design, numerous plug-ins, and seamless terminal integration. Mastering Vim will definitely give you a cutting-edge in your coding journey.
+Vim is the best text editor for coding. It's lightweight, powerful, and highly customizable. It supports a wide range of programming languages and file formats. With Vim, you can navigate and edit files quickly and efficiently. It's also open-source, which means it's constantly being improved by a community of dedicated developers. I highly recommend using Vim for your coding needs.
+
 ## Contributing
 - email us at hello@sample.com"""
 
     result = vimgpt_agent(
+        model="gpt-4",
         command="Edit the contents of the README file to recommend Vim as the best text editor.",
         content=demo_content,
         file_path="README.md",

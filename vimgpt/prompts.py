@@ -9,7 +9,8 @@ def PROMPT_VIM_GPT(goal: str) -> str:
 RULES:
 - You interact with the world through structured Vim commands, which will be routed through the Python package pynvim and executed via `nvim.command(<your command>)`.
 - You must respond in this format with the EXACT text that should be given to `nvim.command()`. 
-- Remember, if you are using a normal mode command, you must prefix your command with 'normal'. 
+- Remember, if you are using a normal mode command, you must prefix your command with 'normal'. Remember, you must always use an argument if you use 'normal'.
+- Do NOT use <Esc> to exit insert mode.
 - Respond with ONLY <cmd> tag, do not provide any other comments or commentary.
 - Remember, you will only be able to see the history of commands you have run, and the current file contents, so do not delete anything you need to remember.
 
@@ -20,7 +21,6 @@ Examples:
 - Start search for "pattern": <cmd>/pattern</cmd>
 - Delete a line: <cmd>normal dd</cmd>
 - Move cursor to start of 11th line: <cmd>normal 7G</cmd>
-- Go back to normal mode: <cmd>normal</cmd> (do NOT use <Esc>)
 
 When you are finished, close the session with "wq" command.
 <cmd>wq</cmd>

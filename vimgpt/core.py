@@ -20,7 +20,10 @@ def vimgpt_agent(
     socket: Optional[str] = None,
     max_calls: int = 1000,
     delay_seconds: Optional[int] = None,
+    model: str = "gpt-4",
 ) -> str:
+    """ """
+
     def get_vim():
         return (
             pynvim.attach("socket", path=socket)
@@ -38,10 +41,11 @@ def vimgpt_agent(
             buf = "\n".join(nvim.current.buffer[:])
             rendered = render_text(file_path, buf, nvim.current.window.cursor, history)
             raw_llm_text = llm_get_keystrokes(
-                [
+                model,
+                messages=[
                     {"role": "system", "content": prompt},
                     {"role": "user", "content": rendered},
-                ]
+                ],
             )
             cmd = extract_cmd_content(raw_llm_text)
             logger.warning(f"VimGPT calling cmd: {cmd}")

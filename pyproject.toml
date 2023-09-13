@@ -8,11 +8,11 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-openai = "0.28.0"
 pynvim = "0.4.3"
 langchain = {extras = ["llms"], version = "^0.0.285"}
 langchain-experimental = "^0.0.16"
 promptlayer = "^0.2.4"
+litellm = "0.1.424"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.0.287"
@@ -52,6 +52,10 @@ mypy_path = "stubs"
 
 [[tool.mypy.overrides]]
 module = 'pynvim.*'
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = 'litellm.*'
 ignore_errors = true
 
 # [[tool.mypy.overrides]]
