@@ -7,6 +7,10 @@ Prototype LLM agent with direct Vim access, using [neovim/pynvim](https://github
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/n_s_bradford)](https://twitter.com/n_s_bradford)
 
+Built with:
+- [LiteLLM](https://github.com/BerriAI/litellm) for LLM client interop
+- [Promptlayer](https://promptlayer.com/) for observability
+- [Helicone](https://www.helicone.ai/) for caching
 
 ## Why?
 There are two common options for using LLM agents to edit files:

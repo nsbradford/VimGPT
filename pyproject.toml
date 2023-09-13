@@ -12,7 +12,7 @@ pynvim = "0.4.3"
 langchain = {extras = ["llms"], version = "^0.0.285"}
 langchain-experimental = "^0.0.16"
 promptlayer = "^0.2.4"
-litellm = "0.1.424"
+litellm = "0.1.618"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.0.287"
