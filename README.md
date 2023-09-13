@@ -9,7 +9,7 @@ Prototype LLM agent with direct Vim access, using [neovim/pynvim](https://github
 
 Built with:
 - [LiteLLM](https://github.com/BerriAI/litellm) for LLM client interop
-- [Promptlayer](https://promptlayer.com/) for observability
+- [PromptLayer](https://promptlayer.com/) for observability
 - [Helicone](https://www.helicone.ai/) for caching
 
 ## Why?
