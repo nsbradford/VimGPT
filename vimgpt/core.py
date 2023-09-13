@@ -13,8 +13,8 @@ logger = logging.getLogger(__name__)
 
 
 def vimgpt_agent(
-    *,  # force kwargs
     command: str,
+    *,  # force kwargs
     content: str = "",
     file_path: Optional[str] = None,
     socket: Optional[str] = None,
@@ -22,7 +22,26 @@ def vimgpt_agent(
     delay_seconds: Optional[int] = None,
     model: str = "gpt-4",
 ) -> str:
-    """ """
+    """
+    Interface between Vim/Neovim and a GPT model to execute commands in the editor based on model suggestions.
+
+    This function facilitates communication between Vim and a specified GPT model. Given an initial command,
+    content, and other optional parameters, it guides the GPT model to produce appropriate Vim commands,
+    which are then executed in the editor in real-time.
+
+    Parameters:
+    - command (str): The initial command to guide the GPT model's response.
+    - content (str, optional): The initial content to be loaded into the Vim buffer. Default is an empty string.
+    - file_path (str, optional): Path to the file being edited, if any. Default is None.
+    - socket (str, optional): Path to a Neovim socket for attachment. If None, a new Neovim process is started. Default is None.
+    - max_calls (int, optional): Maximum number of times the GPT model should be called. Default is 1000.
+    - delay_seconds (int, optional): Time delay (in seconds) between successive Vim commands. Useful for demos/debugging. Default is None.
+    - model (str, optional): The specific GPT model to be used. Default is 'gpt-4'.
+
+    Returns:
+    - str: The final state of the Vim buffer after all the commands have been executed.
+
+    """
 
     def get_vim():
         return (
