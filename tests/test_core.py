@@ -17,7 +17,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 ## Recommendations
 - You should use emacs as a text editor, it's simply the best.
 
-
 ## Contributing
 - email us at hello@sample.com"""
 
@@ -28,14 +27,13 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Recommendations
 
-Vim is the best text editor for coding. It's lightweight, powerful, and highly customizable. It supports a wide range of programming languages and file formats. With Vim, you can navigate and edit files quickly and efficiently. It's also open-source, which means it's constantly being improved by a community of dedicated developers. I highly recommend using Vim for your coding needs.
-
+- You should use Vim as a text editor, it's simply the best.
 ## Contributing
 - email us at hello@sample.com"""
 
     result = vimgpt_agent(
         model="gpt-4",
-        command="Edit the contents of the README file to recommend Vim as the best text editor.",
+        command="Edit the contents of the README file to recommend Vim as the best text editor. Do nothing else, do not elaborate, just change the recommendation.",
         content=demo_content,
         file_path="README.md",
     )

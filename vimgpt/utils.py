@@ -2,10 +2,10 @@ import re
 from typing import List, Optional, Tuple
 
 
-def extract_cmd_content(s):
+def extract_cmd_contents(s) -> List[str]:
     pattern = r"<cmd>(.*?)</cmd>"
-    match = re.search(pattern, s, re.DOTALL)  # re.DOTALL makes . match newlines as well
-    return match.group(1) if match else s
+    matches = re.findall(pattern, s, re.DOTALL)  # re.DOTALL makes . match newlines as well
+    return matches if matches else [s]
 
 
 def add_line_numbers(text):

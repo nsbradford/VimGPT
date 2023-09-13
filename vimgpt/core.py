@@ -1,4 +1,3 @@
-# import logging
 import logging
 import time
 from typing import List, Optional
@@ -7,7 +6,7 @@ import pynvim
 
 from vimgpt.llm import llm_get_keystrokes
 from vimgpt.prompts import PROMPT_VIM_GPT
-from vimgpt.utils import extract_cmd_content, render_text
+from vimgpt.utils import extract_cmd_contents, render_text
 
 logger = logging.getLogger(__name__)
 
@@ -63,21 +62,40 @@ def vimgpt_agent(
                 model,
                 messages=[
                     {"role": "system", "content": prompt},
+                    {"role": "assistant", "content": "<cmd>setlocal buftype=nofile</cmd>\n<cmd>set number</cmd>"},
                     {"role": "user", "content": rendered},
                 ],
             )
-            cmd = extract_cmd_content(raw_llm_text)
-            logger.warning(f"VimGPT calling cmd: {cmd}")
-            history.append(cmd)
-            # this gets the command to show up in the UI
-            nvim.command(f'echom "{cmd}"')
-            if cmd == "wq":
-                break
-            else:
-                nvim.command(cmd)
-                if delay_seconds:
-                    # useful for demos/debugging
-                    time.sleep(delay_seconds)
+            cmds = extract_cmd_contents(raw_llm_text)
+            logger.warning(f"VimGPT received cmds: {cmds}")
+            for cmd in cmds:
+                logger.warning(f"VimGPT calling cmd: {cmd}")
+                history.append(cmd)
+                # this gets the command to show up in the UI
+                nvim.command(f'echom "{cmd}"')
+                if cmd in set(
+                [
+                    "q",
+                    "q!",
+                    "wq",
+                    "wq!",
+                    "w",
+                    "w!",
+                    ":q",
+                    ":q!",
+                    ":wq",
+                    ":wq!",
+                    ":w",
+                    ":w!",
+                ]
+            ):
+                    logger.warning("VimGPT decided to exit.")
+                    return buf
+                else:
+                    nvim.command(cmd)
+                    if delay_seconds:
+                        # useful for demos/debugging
+                        time.sleep(delay_seconds)
 
-        logger.warning("VimGPT exited vim.")
+        logger.warning(f"VimGPT reached max calls of {max_calls}.")
         return buf

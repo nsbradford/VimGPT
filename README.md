@@ -139,7 +139,7 @@ Use ruff + black + mypy + pytest. If you're using VSCode, you might want to foll
 black .
 ruff check . --fix
 mypy vimgpt
-pytest -vv -s --verbose
+pytest -vv -s --verbose -o log_cli=true
 ```
 
 ## Roadmap
