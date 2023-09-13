@@ -135,7 +135,7 @@ Use ruff + black + mypy + pytest. If you're using VSCode, you might want to foll
 black .
 ruff check . --fix
 mypy vimgpt
-pytest --verbose -vv
+pytest -vv -s --verbose
 ```
 
 ## Roadmap
