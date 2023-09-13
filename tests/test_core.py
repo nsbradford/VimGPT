@@ -2,8 +2,10 @@ from vimgpt.core import vimgpt_agent
 
 
 def test_vimgpt_agent_basic():
-    result = vimgpt_agent(command="Answer: what is the capital of France?")
-    assert result == "\nThe capital of France is Paris."
+    result = vimgpt_agent(
+        model="gpt-4", command="Answer: what is the capital of France?"
+    )
+    assert result.strip() == "The capital of France is Paris."
 
 
 def test_vimgpt_agent_demo():
@@ -30,6 +32,7 @@ We recommend Vim as the best text editor for software development. It's versatil
 - email us at hello@sample.com"""
 
     result = vimgpt_agent(
+        model="gpt-4",
         command="Edit the contents of the README file to recommend Vim as the best text editor.",
         content=demo_content,
         file_path="README.md",
