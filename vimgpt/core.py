@@ -6,7 +6,7 @@ import pynvim
 
 from vimgpt.llm import llm_get_keystrokes
 from vimgpt.prompts import PROMPT_VIM_GPT
-from vimgpt.utils import extract_cmd_contents, render_text
+from vimgpt.utils import extract_cmd_contents, render_history, render_text
 
 logger = logging.getLogger(__name__)
 
@@ -50,20 +50,19 @@ def vimgpt_agent(
         )
 
     prompt = PROMPT_VIM_GPT(command)
-    history: List[str] = []
+    history: List[str] = ["setlocal buftype=nofile", "set number"]
     with get_vim() as nvim:
         nvim.command("setlocal buftype=nofile")
         nvim.command("set number")
         nvim.current.buffer[:] = content.split("\n")
         for _ in range(max_calls):
             buf = "\n".join(nvim.current.buffer[:])
-            rendered = render_text(file_path, buf, nvim.current.window.cursor, history)
             raw_llm_text = llm_get_keystrokes(
                 model,
                 messages=[
                     {"role": "system", "content": prompt},
-                    {"role": "assistant", "content": "<cmd>setlocal buftype=nofile</cmd>\n<cmd>set number</cmd>"},
-                    {"role": "user", "content": rendered},
+                    {"role": "assistant", "content": render_history(history)},
+                    {"role": "user", "content": render_text(file_path, buf, nvim.current.window.cursor)},
                 ],
             )
             cmds = extract_cmd_contents(raw_llm_text)
