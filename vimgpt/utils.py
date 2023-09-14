@@ -4,7 +4,9 @@ from typing import List, Optional, Tuple
 
 def extract_cmd_contents(s) -> List[str]:
     pattern = r"<cmd>(.*?)</cmd>"
-    matches = re.findall(pattern, s, re.DOTALL)  # re.DOTALL makes . match newlines as well
+    matches = re.findall(
+        pattern, s, re.DOTALL
+    )  # re.DOTALL makes . match newlines as well
     return matches if matches else [s]
 
 
@@ -15,6 +17,7 @@ def add_line_numbers(text):
 
 def render_history(history: List[str]):
     return "\n".join([f"<cmd>{cmd}</cmd>" for cmd in history])
+
 
 def render_text(
     file_path: Optional[str],

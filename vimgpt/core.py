@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 def vimgpt_agent(
     command: str,
     *,  # force kwargs
-    content: str = "",
+    original_content: str = "",
     file_path: Optional[str] = None,
     socket: Optional[str] = None,
     max_calls: int = 1000,
@@ -30,7 +30,7 @@ def vimgpt_agent(
 
     Parameters:
     - command (str): The initial command to guide the GPT model's response.
-    - content (str, optional): The initial content to be loaded into the Vim buffer. Default is an empty string.
+    - original_content (str, optional): The initial content to be loaded into the Vim buffer. Default is an empty string.
     - file_path (str, optional): Path to the file being edited, if any. Default is None.
     - socket (str, optional): Path to a Neovim socket for attachment. If None, a new Neovim process is started. Default is None.
     - max_calls (int, optional): Maximum number of times the GPT model should be called. Default is 1000.
@@ -54,16 +54,32 @@ def vimgpt_agent(
     with get_vim() as nvim:
         nvim.command("setlocal buftype=nofile")
         nvim.command("set number")
-        nvim.current.buffer[:] = content.split("\n")
+        nvim.current.buffer[:] = original_content.split("\n")
         for _ in range(max_calls):
             buf = "\n".join(nvim.current.buffer[:])
+            messages = [{"role": "system", "content": prompt}]
+            if original_content != "" and buf != original_content:
+                messages.append(
+                    {
+                        "role": "user",
+                        "content": render_text(file_path, original_content, (1, 0)),
+                    },
+                )
+            messages.extend(
+                [
+                    {"role": "assistant", "content": render_history(history)},
+                    {
+                        "role": "user",
+                        "content": render_text(
+                            file_path, buf, nvim.current.window.cursor
+                        ),
+                    },
+                ]
+            )
+
             raw_llm_text = llm_get_keystrokes(
                 model,
-                messages=[
-                    {"role": "system", "content": prompt},
-                    {"role": "assistant", "content": render_history(history)},
-                    {"role": "user", "content": render_text(file_path, buf, nvim.current.window.cursor)},
-                ],
+                messages,
             )
             cmds = extract_cmd_contents(raw_llm_text)
             logger.warning(f"VimGPT received cmds: {cmds}")
@@ -73,21 +89,21 @@ def vimgpt_agent(
                 # this gets the command to show up in the UI
                 nvim.command(f'echom "{cmd}"')
                 if cmd in set(
-                [
-                    "q",
-                    "q!",
-                    "wq",
-                    "wq!",
-                    "w",
-                    "w!",
-                    ":q",
-                    ":q!",
-                    ":wq",
-                    ":wq!",
-                    ":w",
-                    ":w!",
-                ]
-            ):
+                    [
+                        "q",
+                        "q!",
+                        "wq",
+                        "wq!",
+                        "w",
+                        "w!",
+                        ":q",
+                        ":q!",
+                        ":wq",
+                        ":wq!",
+                        ":w",
+                        ":w!",
+                    ]
+                ):
                     logger.warning("VimGPT decided to exit.")
                     return buf
                 else:

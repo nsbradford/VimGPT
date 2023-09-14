@@ -34,7 +34,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     result = vimgpt_agent(
         model="gpt-4",
         command="Edit the contents of the README file to recommend Vim as the best text editor. Do nothing else, do not elaborate, just change the recommendation.",
-        content=demo_content,
+        original_content=demo_content,
         file_path="README.md",
     )
     assert result == expected

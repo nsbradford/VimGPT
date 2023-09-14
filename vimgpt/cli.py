@@ -30,7 +30,7 @@ def main():
 
     rewritten = vimgpt_agent(
         command=args.command,
-        content=content,
+        original_content=content,
         file_path=args.path,
         socket=args.socket,
         max_calls=args.max_calls,
