@@ -107,7 +107,13 @@ def vimgpt_agent(
                     logger.warning("VimGPT decided to exit.")
                     return buf
                 else:
-                    nvim.command(cmd)
+                    try:
+                        nvim.command(cmd)
+                    except pynvim.api.nvim.NvimError as e:
+                        # if there's an error, we want to short-circuit
+                        logger.warning(f"VimGPT Error on command '{cmd}': {e}")
+                        history.append(f"\nError on command '{cmd}': {e}\n")
+                        break
                     if delay_seconds:
                         # useful for demos/debugging
                         time.sleep(delay_seconds)
