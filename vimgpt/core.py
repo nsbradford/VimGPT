@@ -83,7 +83,7 @@ def vimgpt_agent(
             )
             cmds = extract_cmd_contents(raw_llm_text)
             logger.warning(f"VimGPT received cmds: {cmds}")
-            for cmd in cmds:
+            for i, cmd in enumerate(cmds):
                 logger.warning(f"VimGPT calling cmd: {cmd}")
                 history.append(cmd)
                 # this gets the command to show up in the UI
@@ -104,8 +104,14 @@ def vimgpt_agent(
                         ":w!",
                     ]
                 ):
-                    logger.warning("VimGPT decided to exit.")
-                    return buf
+                    if i == 0:
+                        logger.warning("VimGPT decided to exit.")
+                        return buf
+                    else:
+                        logger.warning(
+                            "VimGPT tried to exit, but we're forcing it to re-read the file to make sure it's done."
+                        )
+                        break
 
                 # some commands just can't shake out of it with prompts.
                 elif cmd.lower() in set(
