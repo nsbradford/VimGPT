@@ -57,7 +57,6 @@ def vimgpt_agent(
         return buf
 
 
-
 def render_text(
     file_path: Optional[str],
     text: str,
@@ -91,6 +90,7 @@ def insert_cursor(text, rowOneIdx, col):
 
     # Insert the combining low line character at the determined position
     return text[:pos] + "\u0332" + text[pos:]
+
 
 def vimgpt_agent_plan_and_execute(
     *,  # force kwargs

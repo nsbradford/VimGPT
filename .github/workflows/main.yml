@@ -72,4 +72,4 @@ jobs:
         poetry install
     - name: Run MyPy type check
       run: |
-        poetry run mypy .
+        poetry run mypy vimgpt
