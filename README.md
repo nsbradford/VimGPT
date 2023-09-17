@@ -146,6 +146,7 @@ pytest -vv -s --verbose -o log_cli=true
 
 ## Roadmap
 - Improvements
+  - make a full-fledged agent using builtin LSP/treesitter
   - Async/await instead of blocking (at least for LLM calls - does pynvim support?)
 - Experiments
   - Use relative line numbers (`set relativenumber`)

@@ -14,6 +14,7 @@ RULES:
 - Respond with ONLY <cmd> tag, do not provide any other comments or commentary.
 - Remember, you will only be able to see the history of commands you have run, and the current file contents, so do not delete anything you need to remember.
 - You are allowed to give multiple commands at once, as long as they are each in their own <cmd> tag.
+- Use the MINIMUM number of keystrokes necessary. You want to be as efficient as possible.
 
 <cmd>The exact text that should be given to `nvim.command()`</cmd>
 

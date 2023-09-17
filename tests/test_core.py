@@ -3,9 +3,9 @@ from vimgpt.core import vimgpt_agent
 
 def test_vimgpt_agent_basic():
     result = vimgpt_agent(
-        model="gpt-4", command="Answer: what is the capital of France?"
+        model="gpt-4", command="Answer: what is the capital of France? Answer in 1 word."
     )
-    assert result.strip() == "The capital of France is Paris."
+    assert result.strip() == "Paris"
 
 
 def test_vimgpt_agent_demo():
