@@ -35,6 +35,7 @@ def main():
         socket=args.socket,
         max_calls=args.max_calls,
         delay_seconds=args.delay_seconds,
+        model=args.model,
     )
 
     # Determine where to write the output
@@ -89,6 +90,13 @@ def _vimgpt_cli_parser(default_output_file):
         type=str,
         default=None,
         help="Path to nvim socket of running nvim process. If left empty, VimGPT will run in headless mode. Suggested value: '/tmp/nvimsocket'.",
+    )
+    parser.add_argument(
+        "--model",
+        "-m",
+        type=str,
+        default="gpt-4",
+        help="The specific model to be used. Default is 'gpt-4'",
     )
     parser.add_argument(
         "--loglevel",

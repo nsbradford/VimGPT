@@ -1,5 +1,5 @@
 # VimGPT
-Prototype LLM agent with direct Vim access, using [neovim/pynvim](https://github.com/neovim/pynvim).
+Prototype LLM agent/toolkit with direct Vim access, using [neovim/pynvim](https://github.com/neovim/pynvim). Intended for use either as a sub-agent for efficient file editing, or as its own agent runtime.
 
 ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/nsbradford/vimgpt/main.yml?label=CI%20tests)
 ![PyPI - Version](https://img.shields.io/pypi/v/vimgpt)
@@ -23,6 +23,7 @@ There are a few common options for using LLM agents to edit files:
 ### Drawbacks
 - VimGPT's performance varies considerably depending on your chosen agent runtime, as the central challenge is managing history and intention while chaining many commands.
 - VimGPT tends to be quite fast, but does consume a lot of requests because each command is its own request.
+- So far, only `gpt-4` seems capable of using this properly - more research tbd.
 
 ## Installation
 
@@ -148,6 +149,7 @@ pytest -vv -s --verbose -o log_cli=true
 - Improvements
   - make a full-fledged agent using builtin LSP/treesitter
   - Async/await instead of blocking (at least for LLM calls - does pynvim support?)
+  - Simplify prompt engineering so can work with weaker models than gpt-4 (gpt-3.5, claude-2)
 - Experiments
   - Use relative line numbers (`set relativenumber`)
   - cursor representation (suggested by GPT-4) likely causes some problems/could be optimized. A simple inserted `_` or `|` might work.

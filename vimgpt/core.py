@@ -35,7 +35,7 @@ def vimgpt_agent(
     - socket (str, optional): Path to a Neovim socket for attachment. If None, a new Neovim process is started. Default is None.
     - max_calls (int, optional): Maximum number of times the GPT model should be called. Default is 1000.
     - delay_seconds (int, optional): Time delay (in seconds) between successive Vim commands. Useful for demos/debugging. Default is None.
-    - model (str, optional): The specific GPT model to be used. Default is 'gpt-4'.
+    - model (str, optional): The specific model to be used. Default is 'gpt-4'.
 
     Returns:
     - str: The final state of the Vim buffer after all the commands have been executed.

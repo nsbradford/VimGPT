@@ -18,6 +18,8 @@ from langchain_experimental.plan_and_execute import (
 )
 from litellm import completion
 
+from vimgpt.prompts import PROMPT_VIM_GPT, PROMPT_VIM_GPT_TOOL
+
 logger = logging.getLogger(__name__)
 
 # https://docs.litellm.ai/docs/observability/promptlayer_integration
@@ -96,54 +98,6 @@ def llm_get_keystrokes(model: str, messages: List[Dict[str, str]]) -> str:
     return text
 
 
-def PROMPT_VIM_GPT(goal: str) -> str:
-    """
-    Removed <thoughts>CONCISE thoughts about what to do next</thoughts> tag for faster performance.
-    """
-    return (
-        f"You are ThePrimeagen, a god-level software engineer and Vim user, with the following goal: \n<goal>\n{goal}\n</goal>"
-        + """
-
-RULES:
-- You interact with the world through structured Vim commands, which will be routed through the Python package pynvim and executed via `nvim.command(<your command>)`.
-- You must respond in this format with the EXACT text that should be given to `nvim.command()`. 
-- Remember, if you are using a normal mode command, you must prefix your command with 'normal'. Remember, you must always use an argument if you use 'normal'.
-- Do NOT use <Esc> to exit insert mode.
-- Respond with ONLY <cmd> tag, do not provide any other comments or commentary.
-- Remember, you will only be able to see the history of commands you have run, and the current file contents, so do not delete anything you need to remember.
-- You are allowed to give multiple commands at once, as long as they are each in their own <cmd> tag.
-- Use the MINIMUM number of keystrokes necessary. You want to be as efficient as possible.
-
-<cmd>The exact text that should be given to `nvim.command()`</cmd>
-
-Examples:
-- Enter insert mode: <cmd>normal i</cmd>
-- Enter insert mode and write text: <cmd>normal iHello, world!</cmd>
-- Start search for "pattern": <cmd>/pattern</cmd>
-- Delete a line: <cmd>normal dd</cmd>
-- Move cursor to start of 11th line: <cmd>normal 7G</cmd>
-
-When you are finished, close the session with "wq" command.
-<cmd>wq</cmd>
-
-Here is the file, which is already open in nvim:
-"""
-    )
-
-
-PROMPT_VIM_GPT_TOOL = """
-- You interact with the world through structured Vim commands, which will be routed through the Python package pynvim and executed via `nvim.command(<your command>)`.
-- You must respond in this format with the EXACT text that should be given to `nvim.command()`. 
-- Remember, if you are using a normal mode command, you must prefix your command with 'normal'. 
-
-Examples:
-- Enter insert mode: "normal i"
-- Start search for "pattern": "/pattern"
-- Delete a line: "normal dd"
-- Move cursor to start of 11th line: "normal 7G"
-"""
-
-
 def vimgpt_agent(
     command: str,
     *,  # force kwargs
@@ -154,27 +108,6 @@ def vimgpt_agent(
     delay_seconds: Optional[int] = None,
     model: str = "gpt-4",
 ) -> str:
-    """
-    Interface between Vim/Neovim and a GPT model to execute commands in the editor based on model suggestions.
-
-    This function facilitates communication between Vim and a specified GPT model. Given an initial command,
-    content, and other optional parameters, it guides the GPT model to produce appropriate Vim commands,
-    which are then executed in the editor in real-time.
-
-    Parameters:
-    - command (str): The initial command to guide the GPT model's response.
-    - original_content (str, optional): The initial content to be loaded into the Vim buffer. Default is an empty string.
-    - file_path (str, optional): Path to the file being edited, if any. Default is None.
-    - socket (str, optional): Path to a Neovim socket for attachment. If None, a new Neovim process is started. Default is None.
-    - max_calls (int, optional): Maximum number of times the GPT model should be called. Default is 1000.
-    - delay_seconds (int, optional): Time delay (in seconds) between successive Vim commands. Useful for demos/debugging. Default is None.
-    - model (str, optional): The specific GPT model to be used. Default is 'gpt-4'.
-
-    Returns:
-    - str: The final state of the Vim buffer after all the commands have been executed.
-
-    """
-
     def get_vim():
         return (
             pynvim.attach("socket", path=socket)
