@@ -1,4 +1,6 @@
-# import logging
+# we don't want this package to depend on langchain.
+# type: ignore
+
 import logging
 from typing import List, Optional
 
