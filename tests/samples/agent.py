@@ -16,6 +16,23 @@ from vimgpt.prompts import PROMPT_VIM_GPT, PROMPT_VIM_GPT_TOOL
 from vimgpt.utils import add_line_numbers
 
 
+def render_text(
+    file_path: Optional[str],
+    text: str,
+    cursor: Tuple[int, int],
+):
+    (rowOneIdx, colOneIdx) = cursor
+    # insert the cursor, then add line numbers.
+    lines = text.split("\n")
+    cols = len(lines[rowOneIdx - 1])
+    with_cursor = insert_cursor(text, rowOneIdx, colOneIdx)
+    with_line_numbers = add_line_numbers(with_cursor)
+    filename = file_path or ""
+    filewrapped = f"```{filename}\n{with_line_numbers}\n```"
+    postfix = f"\nCol {colOneIdx} of {cols}; Line {rowOneIdx} of {len(lines)};\n"
+    return filewrapped + postfix
+
+
 def vimgpt_agent(
     command: str,
     *,  # force kwargs
@@ -55,23 +72,6 @@ def vimgpt_agent(
             for cmd in cmds:
                 nvim.command(cmd)
         return buf
-
-
-def render_text(
-    file_path: Optional[str],
-    text: str,
-    cursor: Tuple[int, int],
-):
-    (rowOneIdx, colOneIdx) = cursor
-    # insert the cursor, then add line numbers.
-    lines = text.split("\n")
-    cols = len(lines[rowOneIdx - 1])
-    with_cursor = insert_cursor(text, rowOneIdx, colOneIdx)
-    with_line_numbers = add_line_numbers(with_cursor)
-    filename = file_path or ""
-    filewrapped = f"```{filename}\n{with_line_numbers}\n```"
-    postfix = f"\nCol {colOneIdx} of {cols}; Line {rowOneIdx} of {len(lines)};\n"
-    return filewrapped + postfix
 
 
 def insert_cursor(text, rowOneIdx, col):

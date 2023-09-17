@@ -13,6 +13,7 @@ RULES:
 - Remember, if you are using a normal mode command, you must prefix your command with 'normal'. Remember, you must always use an argument if you use 'normal'.
 - Do NOT use <Esc> to exit insert mode.
 - Respond with ONLY <cmd> tag, do not provide any other comments or commentary.
+- Repond with ONLY one <cmd> at a time, then wait to see what happens.
 - Remember, you will only be able to see the history of commands you have run, and the current file contents, so do not delete anything you need to remember.
 - Use the MINIMUM number of keystrokes necessary. You want to be as efficient as possible.
 
