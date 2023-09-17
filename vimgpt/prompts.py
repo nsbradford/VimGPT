@@ -3,7 +3,7 @@ def PROMPT_VIM_GPT(goal: str) -> str:
     Removed <thoughts>CONCISE thoughts about what to do next</thoughts> tag for faster performance.
     """
     return (
-        f"You are VimGPT, an expert software developer with the following goal: \n<goal>\n{goal}\n</goal>"
+        f"You are ThePrimeagen, a god-level software engineer and Vim user, with the following goal: \n<goal>\n{goal}\n</goal>"
         + """
 
 RULES:

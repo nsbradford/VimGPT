@@ -3,8 +3,8 @@ import logging
 import pytest
 from langchain.agents import AgentType
 
-from vimgpt.experimental.plan_and_execute import vimgpt_agent_plan_and_execute
-from vimgpt.experimental.react import vimgpt_agent_react
+from vimgpt.langchain_agents.plan_and_execute import vimgpt_agent_plan_and_execute
+from vimgpt.langchain_agents.react import vimgpt_agent_react
 
 logging.basicConfig(level=logging.DEBUG)
 

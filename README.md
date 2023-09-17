@@ -87,6 +87,7 @@ vimgpt "Edit the contents of the README file to recommend Vim as the best text e
 ```
 
 ### As a library
+VimGPT is intended to be used as a subagent/tool so it can be composed within larger agents, so you can just call `vim_gpt_agent()` directly with a specific goal.
 
 ```python
 from vimgpt import vimgpt_agent 
@@ -103,7 +104,8 @@ new_file_content: str = vimgpt_agent(
 )
 
 ```
-
+### Using with LangChain/other agents
+Look at `vimgpt/core.py` for inspiration. For [LangChain](https://github.com/langchain-ai/langchain) examples, check out `./vimgpt/langchain_agents/` for alternative runtimes and examples of how to use VimGPT as a tool.
 
 ## Development
 This project uses [poetry](https://python-poetry.org/).
@@ -143,19 +145,11 @@ pytest -vv -s --verbose -o log_cli=true
 ```
 
 ## Roadmap
-- turn into langchain tool/agent
-  - integrate promptlayer
-  - Abstract over LLM provider
-- Multi-line
-  - test
-  - Fix relative line numbers
-- More examples
-  - improve the basic demo
-  - Regex search and replace
-  - test on multi-page files
-  - Demo video
-  - Call it WITHIN neovim itself while you're working on something
-- Async/await instead of blocking (at least for LLM calls - does pynvim support?)
+- Improvements
+  - Async/await instead of blocking (at least for LLM calls - does pynvim support?)
+- Experiments
+  - Use relative line numbers (`set relativenumber`)
+  - cursor representation (suggested by GPT-4) likely causes some problems/could be optimized. A simple inserted `_` or `|` might work.
 - Open issues
   - sometimes gets confused and will enter infinite loops because of the current naive approach to history, `$ vimgpt --socket '/tmp/nvimsocket' tests/samples/README.md "Edit to recommend vim instead of emacs."`
-  - cursor representation (suggested by GPT-4) likely causes some problems/could be optimized. A simple inserted `_` or `|` might work.
+  
