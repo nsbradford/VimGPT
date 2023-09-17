@@ -33,7 +33,6 @@ litellm.headers = {
 logger = logging.getLogger(__name__)
 
 
-
 def extract_cmd_contents(s) -> List[str]:
     pattern = r"<cmd>(.*?)</cmd>"
     matches = re.findall(
@@ -87,7 +86,6 @@ def insert_cursor(text, rowOneIdx, col):
 
     # Insert the combining low line character at the determined position
     return text[:pos] + "\u0332" + text[pos:]
-
 
 
 def llm_get_keystrokes(model: str, messages: List[Dict[str, str]]) -> str:

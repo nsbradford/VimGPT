@@ -106,7 +106,7 @@ def vimgpt_agent(
                 ):
                     logger.warning("VimGPT decided to exit.")
                     return buf
-                
+
                 # some commands just can't shake out of it with prompts.
                 elif cmd.lower() in set(
                     [
