@@ -19,7 +19,7 @@ def main():
 
     # configuring logging here is fine because CLI is the entry point;
     # library consumers will import vimgpt.core instead
-    logging.basicConfig(level=args.loglevel)
+    logging.basicConfig(level=args.loglevel, format='%(message)s')
     logger = logging.getLogger(__name__)
 
     content = ""

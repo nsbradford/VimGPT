@@ -19,8 +19,8 @@ logger = logging.getLogger(__name__)
 
 
 def llm_get_keystrokes(model: str, messages: List[Dict[str, str]]) -> str:
-    logger.warning(f"Calling LLM {model}")
+    logger.info(f"Calling LLM {model}")
     litellm_completion = completion(model=model, messages=messages, temperature=0)
     text = litellm_completion.choices[0].message.content
-    logger.warning(f"LiteLLM response: {litellm_completion.choices[0].message.content}")
+    logger.info(f"LiteLLM response: {litellm_completion.choices[0].message.content}")
     return text

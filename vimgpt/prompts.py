@@ -8,6 +8,7 @@ def PROMPT_VIM_GPT(goal: str) -> str:
 
 RULES:
 - You interact with the world through structured Vim commands, which will be routed through the Python package pynvim and executed via `nvim.command(<your command>)`.
+- You ONLY have access to this one file, no others.
 - You must respond in this format with the EXACT text that should be given to `nvim.command()`. 
 - Remember, if you are using a normal mode command, you must prefix your command with 'normal'. Remember, you must always use an argument if you use 'normal'.
 - Do NOT use <Esc> to exit insert mode.

@@ -53,7 +53,11 @@ def vimgpt_agent(
     history: List[str] = ["setlocal buftype=nofile", "set number"]
     with get_vim() as nvim:
         nvim.command("setlocal buftype=nofile")
-        nvim.command("set number")
+        # nvim.command("set number")
+        nvim.command("set relativenumber")
+        # highlighting just for demo purposes
+        if file_path and file_path.endswith(".py"):
+            nvim.command(":setfiletype python")
         nvim.current.buffer[:] = original_content.split("\n")
         for _ in range(max_calls):
             buf = "\n".join(nvim.current.buffer[:])
@@ -82,12 +86,8 @@ def vimgpt_agent(
                 messages,
             )
             cmds = extract_cmd_contents(raw_llm_text)
-            logger.warning(f"VimGPT received cmds: {cmds}")
+            logger.info(f"VimGPT received cmds: {cmds}")
             for i, cmd in enumerate(cmds):
-                logger.warning(f"VimGPT calling cmd: {cmd}")
-                history.append(cmd)
-                # this gets the command to show up in the UI
-                nvim.command(f'echom "{cmd}"')
                 if cmd in set(
                     [
                         "q",
@@ -108,7 +108,7 @@ def vimgpt_agent(
                         logger.warning("VimGPT decided to exit.")
                         return buf
                     else:
-                        logger.warning(
+                        logger.info(
                             "VimGPT tried to exit, but we're forcing it to re-read the file to make sure it's done."
                         )
                         break
@@ -119,9 +119,13 @@ def vimgpt_agent(
                         "normal <esc>",
                     ]
                 ):
-                    logger.warning(f"Skipping bad command: '{cmd}'")
+                    logger.info(f"Skipping bad command: '{cmd}'")
                 else:
+                    logger.warning(f"VimGPT calling cmd: {cmd}")
+                    history.append(cmd)
                     try:
+                        # this gets the command to show up in the UI
+                        nvim.command(f'echom "{cmd}"')
                         nvim.command(cmd)
                     except pynvim.api.nvim.NvimError as e:
                         # if there's an error, we want to short-circuit
