@@ -7,11 +7,16 @@ Experimental LLM agent/toolkit with direct Vim access, using [neovim/pynvim](htt
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/n_s_bradford)](https://twitter.com/n_s_bradford)
 
-Here's a lil [demo video](https://www.loom.com/share/de1b95bdeb064160bda2720c3d9eb256).
 Built with:
 - [LiteLLM](https://github.com/BerriAI/litellm) for LLM client interop
 - [PromptLayer](https://promptlayer.com/) for observability
 - [Helicone](https://www.helicone.ai/) for caching
+
+Here's a lil [demo video](https://www.loom.com/share/de1b95bdeb064160bda2720c3d9eb256).
+
+https://github.com/nsbradford/VimGPT/assets/6633811/465aea98-cb2c-4248-b5a5-9ea73b5ef462
+
+
 
 ## Why?
 There are a few common options for using LLM agents to edit files:
