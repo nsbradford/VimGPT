@@ -1,5 +1,5 @@
 # VimGPT
-Prototype LLM agent/toolkit with direct Vim access, using [neovim/pynvim](https://github.com/neovim/pynvim). Intended for use either as a sub-agent for efficient file editing, or as its own agent runtime.
+Experimental LLM agent/toolkit with direct Vim access, using [neovim/pynvim](https://github.com/neovim/pynvim). Intended for use either as a sub-agent for efficient file editing, or as its own agent runtime.
 
 ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/nsbradford/vimgpt/main.yml?label=CI%20tests)
 ![PyPI - Version](https://img.shields.io/pypi/v/vimgpt)
@@ -22,7 +22,7 @@ There are a few common options for using LLM agents to edit files:
 
 ### Drawbacks
 
-> :warning: **WARNING**: VimGPT is in early development. Use at own risk.
+> :warning: **WARNING**: VimGPT is still experimental and not yet ready for production.
 
 - VimGPT's performance varies considerably depending on your chosen agent runtime - your mileage may vary.
 - VimGPT tends to be quite fast, but does consume a lot of requests/tokens because each command is its own request.
