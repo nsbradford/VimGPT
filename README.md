@@ -158,4 +158,5 @@ pytest -vv -s --verbose -o log_cli=true
   - cursor representation (suggested by GPT-4) likely causes some problems/could be optimized. Tried using an inserted `_` or `|` but this didn't really work.
 - Open issues
   - even GPT-4 can sometimes get confused and submit files that are clearly wrong sometimes, and sometimes can enter endless loops of using the wrong commands - unclear if just a prompt eng issue or whether the models are not quite good enough at Vim.
+  - some trouble escaping double quotes `"`?
   
