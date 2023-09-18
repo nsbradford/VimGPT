@@ -16,11 +16,7 @@ from vimgpt.prompts import PROMPT_VIM_GPT, PROMPT_VIM_GPT_TOOL
 from vimgpt.utils import add_line_numbers
 
 
-def render_text(
-    file_path: Optional[str],
-    text: str,
-    cursor: Tuple[int, int],
-):
+def render_text(file_path: Optional[str], text: str, cursor: Tuple[int, int]):
     (rowOneIdx, colOneIdx) = cursor
     # insert the cursor, then add line numbers.
     lines = text.split("\n")
@@ -43,6 +39,8 @@ def vimgpt_agent(
     delay_seconds: Optional[int] = None,
     model: str = "gpt-4",
 ) -> str:
+    print(f"VimGPT init custom agent runtime: {command}")
+
     def get_vim():
         return (
             pynvim.attach("socket", path=socket)
@@ -67,7 +65,9 @@ def vimgpt_agent(
                 messages,
             )
             for cmd in cmds:
+                print(f"VimGPT running cmd: {cmd}")
                 nvim.command(cmd)
+        print("VimGPT exited")
         return buf
 
 
@@ -98,6 +98,8 @@ def vimgpt_agent_plan_and_execute(
     max_calls: int = 1000,
     delay_seconds: Optional[int] = None,
 ) -> str:
+    print(f"VimGPT using Plan and Execute agent runtime {command}")
+
     def get_vim():
         return (
             pynvim.attach("socket", path=socket)
@@ -111,6 +113,7 @@ def vimgpt_agent_plan_and_execute(
         nvim.current.buffer[:] = content.split("\n")
 
         def exec_vim(cmd: str):
+            print(f"VimGPT Tool executing: {cmd}")
             nvim.command(f'echom "{cmd}"')
             nvim.command(cmd)
             buf = "\n".join(nvim.current.buffer[:])
@@ -140,6 +143,8 @@ def vimgpt_agent_react(
     max_calls: int = 1000,
     delay_seconds: Optional[int] = None,
 ) -> str:
+    print(f"VimGPT using React agent runtime: {command}")
+
     def get_vim():
         return (
             pynvim.attach("socket", path=socket)
@@ -153,6 +158,7 @@ def vimgpt_agent_react(
         nvim.current.buffer[:] = content.split("\n")
 
         def exec_vim(cmd: str):
+            print(f"VimGPT Tool executing: {cmd}")
             nvim.command(f'echom "{cmd}"')
             nvim.command(cmd)
             buf = "\n".join(nvim.current.buffer[:])
@@ -165,8 +171,8 @@ def vimgpt_agent_react(
 
         # TODO caching not working for chat models?
         # https://discord.com/channels/1038097195422978059/1149840567895867443/1149840567895867443
-        # openai.api_base = "https://oai.hconeai.com/v1"
-        # , headers={"Helicone-Cache-Enabled": "true"}
+        # openai.api_base = 'https://oai.hconeai.com/v1'
+        # , headers={'Helicone-Cache-Enabled': 'true'}
         # model='gpt-4',
         model = ChatOpenAI(
             temperature=0, callbacks=[PromptLayerCallbackHandler(pl_tags=["langchain"])]

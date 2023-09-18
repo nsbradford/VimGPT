@@ -55,3 +55,6 @@ def insert_cursor(text, rowOneIdx, col):
 
     # Insert the combining low line character at the determined position
     return text[:pos] + "\u0332" + text[pos:]
+
+    # this just inserts a "|" character instead of underlining the character
+    # return text[:pos] + "_" + text[pos:]

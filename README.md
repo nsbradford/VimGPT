@@ -21,8 +21,11 @@ There are a few common options for using LLM agents to edit files:
 **The Solution**: Instead of asking the agent to call a tool with the new contents, give the agent a "Editor" tool which drops into a sub-agent with appropriate context. The simulated editor shows the state of the editor in plaintext, takes individual keystrokes, and reflects updates. And why invent your own editor when LLMs already know about Vim?
 
 ### Drawbacks
-- VimGPT's performance varies considerably depending on your chosen agent runtime, as the central challenge is managing history and intention while chaining many commands.
-- VimGPT tends to be quite fast, but does consume a lot of requests because each command is its own request.
+
+> :warning: **WARNING**: VimGPT is in early development. Use at own risk.
+
+- VimGPT's performance varies considerably depending on your chosen agent runtime - your mileage may vary.
+- VimGPT tends to be quite fast, but does consume a lot of requests/tokens because each command is its own request.
 - So far, only `gpt-4` seems capable of using this properly - more research tbd.
 
 ## Installation
@@ -148,11 +151,11 @@ pytest -vv -s --verbose -o log_cli=true
 ## Roadmap
 - Improvements
   - make a full-fledged agent using builtin LSP/treesitter
-  - Async/await instead of blocking (at least for LLM calls - does pynvim support?)
+  - Async/await
   - Simplify prompt engineering so can work with weaker models than gpt-4 (gpt-3.5, claude-2)
 - Experiments
   - Use relative line numbers (`set relativenumber`)
-  - cursor representation (suggested by GPT-4) likely causes some problems/could be optimized. A simple inserted `_` or `|` might work.
+  - cursor representation (suggested by GPT-4) likely causes some problems/could be optimized. Tried using an inserted `_` or `|` but this didn't really work.
 - Open issues
-  - sometimes gets confused and will enter infinite loops because of the current naive approach to history, `$ vimgpt --socket '/tmp/nvimsocket' tests/samples/README.md "Edit to recommend vim instead of emacs."`
+  - even GPT-4 can sometimes get confused and submit files that are clearly wrong sometimes, and sometimes can enter endless loops of using the wrong commands - unclear if just a prompt eng issue or whether the models are not quite good enough at Vim.
   

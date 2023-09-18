@@ -20,6 +20,7 @@ def vimgpt_agent(
     max_calls: int = 1000,
     delay_seconds: Optional[int] = None,
     model: str = "gpt-4",
+    multicommand_enabled: bool = False,
 ) -> str:
     """
     Interface between Vim/Neovim and a GPT model to execute commands in the editor based on model suggestions.
@@ -126,7 +127,8 @@ def vimgpt_agent(
                     try:
                         # this gets the command to show up in the UI
                         nvim.command(f'echom "{cmd}"')
-                        nvim.command(cmd)
+                        # need to escape quotes and some other chars
+                        nvim.command(cmd.replace('"', r"\""))
                     except pynvim.api.nvim.NvimError as e:
                         # if there's an error, we want to short-circuit
                         logger.warning(f"VimGPT Error on command '{cmd}': {e}")
@@ -135,6 +137,9 @@ def vimgpt_agent(
                     if delay_seconds:
                         # useful for demos/debugging
                         time.sleep(delay_seconds)
+
+                if not multicommand_enabled:
+                    break
 
         logger.warning(f"VimGPT reached max calls of {max_calls}.")
         return buf
