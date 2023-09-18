@@ -35,7 +35,7 @@ def render_text(
 
 def vimgpt_agent(
     command: str,
-    *,  # force kwargs
+    *,
     original_content: str = "",
     file_path: Optional[str] = None,
     socket: Optional[str] = None,
@@ -54,17 +54,14 @@ def vimgpt_agent(
     with get_vim() as nvim:
         for _ in range(max_calls):
             buf = "\n".join(nvim.current.buffer[:])
-            messages = [{"role": "system", "content": prompt}]
-            messages.extend(
-                [
-                    {
-                        "role": "user",
-                        "content": render_text(
-                            file_path, buf, nvim.current.window.cursor
-                        ),
-                    },
-                ]
-            )
+            rendered = render_text(file_path, buf, nvim.current.window.cursor)
+            messages = [
+                {"role": "system", "content": prompt},
+                {
+                    "role": "user",
+                    "content": rendered,
+                },
+            ]
             cmds = completion(
                 model,
                 messages,
@@ -93,7 +90,7 @@ def insert_cursor(text, rowOneIdx, col):
 
 
 def vimgpt_agent_plan_and_execute(
-    *,  # force kwargs
+    *,
     command: str,
     content: str = "",
     file_path: Optional[str] = None,
@@ -114,24 +111,6 @@ def vimgpt_agent_plan_and_execute(
         nvim.current.buffer[:] = content.split("\n")
 
         def exec_vim(cmd: str):
-            if cmd in set(
-                [
-                    "q",
-                    "q!",
-                    "wq",
-                    "wq!",
-                    "w",
-                    "w!",
-                    ":q",
-                    ":q!",
-                    ":wq",
-                    ":wq!",
-                    ":w",
-                    ":w!",
-                ]
-            ):
-                return "There is no need to save the file, it will be saved automatically with the current contents if you exit."
-            # this gets the command to show up in the UI
             nvim.command(f'echom "{cmd}"')
             nvim.command(cmd)
             buf = "\n".join(nvim.current.buffer[:])
@@ -174,7 +153,6 @@ def vimgpt_agent_react(
         nvim.current.buffer[:] = content.split("\n")
 
         def exec_vim(cmd: str):
-            # this gets the command to show up in the UI
             nvim.command(f'echom "{cmd}"')
             nvim.command(cmd)
             buf = "\n".join(nvim.current.buffer[:])
