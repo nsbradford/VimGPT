@@ -135,6 +135,12 @@ poetry install
 
 # view info about your new venv
 poetry env list
+
+# activate in your shell
+poetry shell
+
+# exit poetry env
+source deactivate
 ```
 
 
