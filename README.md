@@ -1,6 +1,7 @@
 # Vim GPT
 Experimental LLM agent/toolkit with direct Vim access, using [neovim/pynvim](https://github.com/neovim/pynvim). Intended for use either as a sub-agent for efficient file editing, or as its own agent runtime. 
 
+
 ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/nsbradford/vimgpt/main.yml?label=CI%20tests)
 ![PyPI - Version](https://img.shields.io/pypi/v/vimgpt)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/vimgpt)
